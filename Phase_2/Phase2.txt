@@ -1,0 +1,36 @@
+Checkpoint 1 (C Program):
+- Result = 16,801
+- Difficulty: easy
+- Time: ~5minutes
+
+Checkpoint 2 (Assembly Program):
+- Result = 0x41A1 = 16,801
+- Difficulty: moderate
+- Time: 30-45minutes
+
+Checkpoint 3 (Machine Code conversion):
+~4mins: addi x5, x0, 0x0
+~1min: addi x6, x0, 0x6A
+~1min: addi x7, x0, 0x0
+~4mins: bge x7, x6, 0x14
+~2mins: add x5, x5, x7
+~1mins: add x5, x5, x6
+~1min: addi x7, x7, 0x1
+~5mins: jal x8, -16
+~1min: addi x9, x0, 0x2
+~2mins: slli x9, x9, 0xc
+~2mins: sw x5, 4(x9)
+- Total time estimate: 24mins
+- Actual time spent: ~40mins
+- Difficulty (if simulated and had to debug, but assembly was already written): difficult
+
+Summary:
+- C-Programming compared to assembly is a very big difference.
+    This is because keeping track of registers (rather than using variable names) is difficult.
+    Also, keeping track of the Program Counter is very difficult, especially if code was modified
+- Converting Assembly to machine code is not too difficult, but is very time consuming and needs to be done carefully
+    Also, looking through the datasheets is very necessary
+- Going from a C-Program to machine code is quite difficult. For a simple program like we created, it was not overly difficult,
+    but for a typical C-program, this process would be very time consuming and difficult, especially since we would likely run
+    out of registers and have to use memory, as well as having to keep track of storing and re-storing registers when jumping to
+    a different routine/function.
