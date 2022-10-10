@@ -1,0 +1,11 @@
+# ninja log v5
+2	9195	1665033646824483873	CMakeFiles/codasip_tti.dir/llvm_CodasipTTIImpl.cpp.o	1d52a906e30c743f
+2	9951	1665033647580495612	CMakeFiles/codasip_tti.dir/llvm_CodasipGenTTIImpl.cpp.o	b4f667eb5724f3e8
+11079	11123	1665033648752513808	libphase3_ia_riscv32i-ia-tti.so	e438dd14891621a
+1	11079	1665033648708513126	CMakeFiles/codasip_tti.dir/CodasipTTI.cpp.o	3eec2f28f2df3b7b
+2	11	0	CMakeFiles/install.util	7ae85c923405cf62
+2	8114	1665033970429475575	CMakeFiles/codasip_tti.dir/llvm_CodasipTTIImpl.cpp.o	1d52a906e30c743f
+3	8581	1665033970897482808	CMakeFiles/codasip_tti.dir/llvm_CodasipGenTTIImpl.cpp.o	b4f667eb5724f3e8
+2	9771	1665033972085501169	CMakeFiles/codasip_tti.dir/CodasipTTI.cpp.o	3eec2f28f2df3b7b
+9771	9813	1665033972129501849	libphase3_ia_riscv32i-ia-tti.so	e438dd14891621a
+2	10	0	CMakeFiles/install.util	7ae85c923405cf62

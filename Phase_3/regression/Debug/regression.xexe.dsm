@@ -1,0 +1,287 @@
+
+F:/CodasipStudio/regression/Debug/regression.xexe:	file format elf32-codasip-le
+
+
+Disassembly of section .text:
+
+00001000 _ftext:
+;  	addi x2, x0, 2				// load 2 into register x2
+    1000: 13 01 20 00                  	addi x2 ,  x0 ,  0x2
+;  	nop
+    1004: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1008: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    100c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	addi x2, x2, (-1 & 0xfff)	// add -1 to x2
+    1010: 13 01 f1 ff                  	addi x2 ,  x2 ,  0xfff
+;  	nop					// x2 = 2
+    1014: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1018: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    101c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	slti x3, x2, 2				// compare 1 to 2, less than so x3 = 1
+    1020: 93 21 21 00                  	slti x3 ,  x2 ,  0x2
+;  	nop					// x2 = 1
+    1024: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1028: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    102c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	slti x3, x2, 1				// compare 1 to 1, not less than, so x3 = 0
+    1030: 93 21 11 00                  	slti x3 ,  x2 ,  0x1
+;  	nop					// x3 = 1
+    1034: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1038: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    103c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1040: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop					// x3 = 0
+    1044: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1048: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    104c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1050: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1054: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;   	halt
+    1058: 3f 00 00 00                  	halt
+;  	nop
+    105c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1060: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1064: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1068: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    106c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1070: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1074: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1078: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	halt
+    107c: 3f 00 00 00                  	halt
+;  	nop
+    1080: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1084: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1088: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    108c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1090: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1094: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1098: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    109c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	halt
+    10a0: 3f 00 00 00                  	halt
+;  	nop
+    10a4: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    10a8: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    10ac: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    10b0: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	addi x2, x0, 1				// load x2 register with 1
+    10b4: 13 01 10 00                  	addi x2 ,  x0 ,  0x1
+;  	addi x3, x0, 2				// load x3 register with 2
+    10b8: 93 01 20 00                  	addi x3 ,  x0 ,  0x2
+;  	addi x4, x0, 3				// load x4 register with 3
+    10bc: 13 02 30 00                  	addi x4 ,  x0 ,  0x3
+;  	addi x5, x0, -1				// load x5 register with -1
+    10c0: 93 02 f0 ff                  	addi x5 ,  x0 ,  0xfff
+; 	nop
+    10c4: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    10c8: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    10cc: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    10d0: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;   	halt
+    10d4: 3f 00 00 00                  	halt
+;  	nop
+    10d8: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    10dc: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    10e0: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    10e4: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    10e8: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    10ec: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    10f0: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    10f4: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	beq x0, x0, PASS
+    10f8: 63 04 00 02                  	beq x0, x0, 0x1120 <PASS>
+
+000010fc BRANCH_FAIL:
+; 	nop
+    10fc: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1100: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1104: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1108: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	halt		// Branch test has failed, time to debug
+    110c: 3f 00 00 00                  	halt
+; 	nop
+    1110: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1114: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1118: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    111c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+
+00001120 PASS:
+; 	nop
+    1120: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1124: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1128: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;   	halt
+    112c: 3f 00 00 00                  	halt
+;  	nop
+    1130: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1134: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1138: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    113c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1140: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1144: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1148: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    114c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;   	halt
+    1150: 3f 00 00 00                  	halt
+;  	nop
+    1154: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1158: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    115c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1160: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	addi x20, x0, 0x765
+    1164: 13 0a 50 76                  	addi x20 ,  x0 ,  0x765
+;  	slli x20, x20, 12
+    1168: 13 1a ca 00                  	slli x20 ,  x20 ,  0xc
+;  	ori	x20, x20, 0x432
+    116c: 13 6a 2a 43                  	ori x20 ,  x20 ,  0x432
+;  	slli x20, x20, 8
+    1170: 13 1a 8a 00                  	slli x20 ,  x20 ,  0x8
+;  	ori x20, x20, 0x10				// x20 = 0x76543210
+    1174: 13 6a 0a 01                  	ori x20 ,  x20 ,  0x10
+;  	xori x21, x20, 0xfff			// x21 = 0x89abcdef
+    1178: 93 4a fa ff                  	xori x21 ,  x20 ,  0xfff
+;  	addi x10, x0, (DATA >> 12)		// Assume DATA memory address less than 24-bits
+    117c: 13 05 10 00                  	addi x10 ,  x0 ,  0x1
+;  	slli x10, x10, 12				// Move the upper 12-bits to locations 12..23
+    1180: 13 15 c5 00                  	slli x10 ,  x10 ,  0xc
+;  	ori x10, x10, (DATA & 0xfff)	// OR in the lower 12-bits to create all 24-bits
+    1184: 13 65 85 1b                  	ori x10 ,  x10 ,  0x1b8
+;  	addi x11, x0, (DATA_MINUS >> 12)	// Assume DATA memory address less than 24-bits
+    1188: 93 05 10 00                  	addi x11 ,  x0 ,  0x1
+;  	slli x11, x11, 12					// Move the upper 12-bits to locations 12..23
+    118c: 93 95 c5 00                  	slli x11 ,  x11 ,  0xc
+;  	ori x11, x11, (DATA_MINUS & 0xfff)	// OR in the lower 12-bits to create all 24-bits
+    1190: 93 e5 85 1d                  	ori x11 ,  x11 ,  0x1d8
+; 	nop
+    1194: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    1198: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    119c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    11a0: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;   	halt
+    11a4: 3f 00 00 00                  	halt
+;   	nop
+    11a8: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;   	beq x0, x0, LOAD_TEST
+    11ac: 63 06 00 02                  	beq x0, x0, 0x11d8 <LOAD_TEST>
+;   	nop
+    11b0: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;   	nop
+    11b4: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+
+000011b8 DATA:
+;  	nop
+    11b8: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    11bc: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    11c0: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    11c4: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    11c8: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    11cc: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    11d0: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    11d4: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+
+000011d8 LOAD_TEST:
+; 	nop
+    11d8: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    11dc: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    11e0: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+; 	nop
+    11e4: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;   	halt
+    11e8: 3f 00 00 00                  	halt
+;  	nop
+    11ec: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    11f0: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    11f4: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    11f8: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+
+000011fc LOAD_FAIL:
+;  	nop								// return result expected, branch to LOAD_FAIL label
+    11fc: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1200: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1204: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	halt
+    1208: 3f 00 00 00                  	halt
+;  	nop
+    120c: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1210: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1214: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
+;  	nop
+    1218: 13 00 00 00                  	addi x0 ,  x0 ,  0x0
