@@ -114,8 +114,8 @@ event id : pipeline(pipe.ID)
         //
         // To specify the desired register, you use the register number as an index into an array as you would in
         // c-programming.  Example is register_file.port[register_number]
-        s_id_rf_src1 = rf_xpr.scr1[s_id_src1]; //get the value of register # "s_id_src1" from the register file
-        s_id_rf_src2 = rf_xpr.scr2[s_id_src2]; //get the value of register # "s_id_src2" from the register file
+        s_id_rf_src1 = rf_xpr.src1[s_id_src1]; //get the value of register # "s_id_src1" from the register file
+        s_id_rf_src2 = rf_xpr.src2[s_id_src2]; //get the value of register # "s_id_src2" from the register file
 
         // Preserve the current instruction decoded
         if (cache_ready & !r_id_buffer_full) {

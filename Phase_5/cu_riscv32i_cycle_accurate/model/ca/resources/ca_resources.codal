@@ -121,9 +121,9 @@ register bit[BOOLEAN_BIT]  r_id_halt                { pipeline = pipe.ID; };    
 // -------------------------------------------------------------------------------------------------
 
 // ALU signals
-signal bit[WORD_W] s_ex_src1_operand          // src1 operand into ALU
-signal bit[WORD_W] s_ex_src2_operand          // src2 operand into ALU
-signal bit[WORD_W] s_ex_alu_result            // result of ALU operation
+signal bit[WORD_W] s_ex_src1_operand;          // src1 operand into ALU
+signal bit[WORD_W] s_ex_src2_operand;          // src2 operand into ALU
+signal bit[WORD_W] s_ex_alu_result;            // result of ALU operation
 
 
 // EX pipeline register
