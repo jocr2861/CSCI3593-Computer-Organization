@@ -1,0 +1,12 @@
+List of tracked instructions in decoders
+
+
+Decoder: inst_decode (tracked instructions: 7)
+
+"halt"
+"addi"
+"slti"
+"sltiu"
+"xori"
+"ori"
+"andi"

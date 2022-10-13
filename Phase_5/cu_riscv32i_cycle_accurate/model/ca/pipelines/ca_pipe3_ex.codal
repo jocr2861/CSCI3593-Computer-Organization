@@ -47,7 +47,7 @@ event ex : pipeline(pipe.EX)
         // this input is from the ID pipeline register
         switch(r_id_src1_sl) {
             case ALU_SRC1_SEL_RF:
-                s_ex_src1_operand = s_id;
+                s_ex_src1_operand = r_id_rf_src1;
                 break;
             default:
                 codasip_fatal(ALU_ERROR, "ALU Src1 Select Mux case: %d\n", r_id_src1_sl); //ALU_ERROR???
@@ -68,6 +68,7 @@ event ex : pipeline(pipe.EX)
                 break;
             case ALU_SRC2_SEL_IMM:
                 s_ex_src2_operand = r_id_src2_imm;
+                break;
             default:
                 codasip_fatal(ALU_ERROR, "ALU Src2 Select Mux case: %d\n", r_id_src2_sl); //ALU_ERROR???
         }

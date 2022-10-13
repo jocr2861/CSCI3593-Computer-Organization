@@ -1,0 +1,140 @@
++=============================+====================+=============================+========================+=========================+===========================+================================+
+|      Element/Event/Function |           Instance |                         HDL | Number of clock cycles | Number of local signals | Number of local registers | Number of local register files |
++=============================+====================+=============================+========================+=========================+===========================+================================+
+|                 alu_operate |        alu_operate |                 alu_operate |  0 combinatorial logic |                       1 |                         0 |                              0 |
+|                 inst_decode |     id.inst_decode |                 inst_decode |  0 combinatorial logic |                       1 |                         0 |                              0 |
+|              i_hw_itype_alu |     id.inst_decode |              i_hw_itype_alu |  0 combinatorial logic |                       1 |                         0 |                              0 |
+|            pipeline_control |   pipeline_control |            pipeline_control |  0 combinatorial logic |                       0 |                         0 |                              0 |
+| pma_hprot_inline_1_inline_1 |                    | pma_hprot_inline_1_inline_1 |  0 combinatorial logic |                       3 |                         0 |                              0 |
+|                          wb |                 wb |                          wb |  0 combinatorial logic |                       1 |                         0 |                              0 |
+|                       reset |                    |                       reset |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                     opc_ori | id.inst_decode.opc |                     opc_ori |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                    opc_addi | id.inst_decode.opc |                    opc_addi |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                    opc_andi | id.inst_decode.opc |                    opc_andi |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                    opc_halt | id.inst_decode.opc |                    opc_halt |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                    opc_slti | id.inst_decode.opc |                    opc_slti |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                    opc_xori | id.inst_decode.opc |                    opc_xori |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                   ex_output |          ex_output |                   ex_output |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                   i_hw_halt |     id.inst_decode |                   i_hw_halt |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                   id_output |          id_output |                   id_output |  0 combinatorial logic |                       2 |                         0 |                              0 |
+|                   if_output |          if_output |                   if_output |  0 combinatorial logic |                       4 |                         0 |                              0 |
+|                   me_output |          me_output |                   me_output |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                   opc_sltiu | id.inst_decode.opc |                   opc_sltiu |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                          ex |                 ex |                          ex |  0 combinatorial logic |                       3 |                         0 |                              0 |
+|                          fe |                 fe |                          fe |  0 combinatorial logic |                       3 |                         0 |                              0 |
+|                          id |                 id |                          id |  0 combinatorial logic |                       8 |                         0 |                              0 |
+|                          me |                 me |                          me |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                        main |                    |                        main |  0 combinatorial logic |                       0 |                         0 |                              0 |
++-----------------------------+--------------------+-----------------------------+------------------------+-------------------------+---------------------------+--------------------------------+
+
+Total Statistics
++======================================+=====+
+|                                 Name | Sum |
++======================================+=====+
+|     Total number of Sequential Units |   0 |
+|  Total number of Combinatorial Units |  24 |
+| Total number of local Register Files |   0 |
+|      Total number of local Registers |   0 |
+|        Total number of local Signals |  27 |
++--------------------------------------+-----+
+
+
+
+alu_operate
++===================+==========+=======+============================================================================================================+
+|                ID | Bitwidth |  Type |                                                                                                     Detail |
++===================+==========+=======+============================================================================================================+
+| codasip_tmp_var_0 |        1 | uint1 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
++-------------------+----------+-------+------------------------------------------------------------------------------------------------------------+
+
+
+ex
++===================+==========+=======+============================================================================================================+
+|                ID | Bitwidth |  Type |                                                                                                     Detail |
++===================+==========+=======+============================================================================================================+
+| codasip_tmp_var_0 |        1 | uint1 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
+| codasip_tmp_var_1 |        1 | uint1 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
+| codasip_tmp_var_2 |        1 |  bool | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
++-------------------+----------+-------+------------------------------------------------------------------------------------------------------------+
+
+
+fe
++===================+==========+=======+============================================================================================================+
+|                ID | Bitwidth |  Type |                                                                                                     Detail |
++===================+==========+=======+============================================================================================================+
+|       cache_hprot |        4 | uint4 |                       Signal, created during scheduling of the unit automatically by the Codasip framework |
+| codasip_tmp_var_0 |        1 |  bool | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
+|         if_status |        2 | uint2 |                       Signal, created during scheduling of the unit automatically by the Codasip framework |
++-------------------+----------+-------+------------------------------------------------------------------------------------------------------------+
+
+
+i_hw_itype_alu
++===================+==========+========+============================================================================================================+
+|                ID | Bitwidth |   Type |                                                                                                     Detail |
++===================+==========+========+============================================================================================================+
+| codasip_tmp_var_0 |       10 | uint10 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
++-------------------+----------+--------+------------------------------------------------------------------------------------------------------------+
+
+
+id
++===================+==========+========+============================================================================================================+
+|                ID | Bitwidth |   Type |                                                                                                     Detail |
++===================+==========+========+============================================================================================================+
+|        temp_instr |       32 | uint32 |                       Signal, created during scheduling of the unit automatically by the Codasip framework |
+|       cache_ready |        1 |   bool |                       Signal, created during scheduling of the unit automatically by the Codasip framework |
+|     id_instr_temp |       32 | uint32 |                       Signal, created during scheduling of the unit automatically by the Codasip framework |
+|     instr_control |        2 |  uint2 |                       Signal, created during scheduling of the unit automatically by the Codasip framework |
+|    cache_response |        1 |   bool |                       Signal, created during scheduling of the unit automatically by the Codasip framework |
+| codasip_tmp_var_0 |        1 |   bool | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
+| codasip_tmp_var_1 |        2 |  uint2 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
+| codasip_tmp_var_2 |        1 |   bool | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
++-------------------+----------+--------+------------------------------------------------------------------------------------------------------------+
+
+
+id_output
++===================+==========+=======+============================================================================================================+
+|                ID | Bitwidth |  Type |                                                                                                     Detail |
++===================+==========+=======+============================================================================================================+
+| codasip_tmp_var_0 |        3 | uint3 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
+| codasip_tmp_var_1 |        1 |  bool | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
++-------------------+----------+-------+------------------------------------------------------------------------------------------------------------+
+
+
+if_output
++===================+==========+======+============================================================================================================+
+|                ID | Bitwidth | Type |                                                                                                     Detail |
++===================+==========+======+============================================================================================================+
+| codasip_tmp_var_0 |        1 | bool |                       Signal, created during scheduling of the unit automatically by the Codasip framework |
+| codasip_tmp_var_1 |        1 | bool | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
+| codasip_tmp_var_2 |        1 | bool | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
+| codasip_tmp_var_3 |        1 | bool | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
++-------------------+----------+------+------------------------------------------------------------------------------------------------------------+
+
+
+inst_decode
++=============+==========+========+======================================================================================+
+|          ID | Bitwidth |   Type |                                                                               Detail |
++=============+==========+========+======================================================================================+
+| INSTRUCTION |       10 | uint10 | Signal, created during scheduling of the unit automatically by the Codasip framework |
++-------------+----------+--------+--------------------------------------------------------------------------------------+
+
+
+pma_hprot_inline_1_inline_1
++=============================================+==========+========+========================================================================================+
+|                                          ID | Bitwidth |   Type |                                                                                 Detail |
++=============================================+==========+========+========================================================================================+
+|                    hprot0_inline_1_inline_1 |        1 |  uint1 |   Signal, created during scheduling of the unit automatically by the Codasip framework |
+|                   address_inline_1_inline_1 |       32 | uint32 |   Signal, created during scheduling of the unit automatically by the Codasip framework |
+|   is_cacheable_bufferable_inline_1_inline_1 |        1 |  uint1 |   Signal, created during scheduling of the unit automatically by the Codasip framework |
+| codasip_return2_pma_hprot_inline_1_inline_1 |        4 |  uint4 | Register, created during scheduling of the unit automatically by the Codasip framework |
++---------------------------------------------+----------+--------+----------------------------------------------------------------------------------------+
+
+
+wb
++===================+==========+======+============================================================================================================+
+|                ID | Bitwidth | Type |                                                                                                     Detail |
++===================+==========+======+============================================================================================================+
+| codasip_tmp_var_0 |        1 | bool | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
++-------------------+----------+------+------------------------------------------------------------------------------------------------------------+
+
+
