@@ -47,11 +47,11 @@ event me_output : pipeline(pipe.MEM)
     semantics
     {
         // ALU result from the EX pipeline register to pass along to the WB stage
-
+        r_mem_alu_result = r_ex_alu_result;
 
 
         // Passing control signals to the next stage, WB, through the MEM pipeline register
-        r_mem_rd          =
-        r_mem_regwrite    =
+        r_mem_rd          = r_ex_rd;
+        r_mem_regwrite    = r_ex_regwrite;
     };
 };

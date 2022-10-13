@@ -145,9 +145,9 @@ signal bit[BOOLEAN_BIT]   s_me_mem_busy;                                        
 
 
 // MEM pipeline register
-                                                        // ALU result from Memory stage
-                                                        // Destination, rd, register index
-                                                        // Register Write (regwrite)
+register bit[WORD_W] r_mem_alu_result       { pipeline = pipe.MEM; };   // ALU result from Memory stage
+register bit[WORD_W] r_mem_rd               { pipeline = pipe.MEM; };   // Destination, rd, register index
+register bit[WORD_W] r_mem_regwrite         { pipeline = pipe.MEM; };   // Register Write (regwrite)
 
 
 // -------------------------------------------------------------------------------------------------

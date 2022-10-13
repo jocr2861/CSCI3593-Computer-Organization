@@ -43,7 +43,9 @@ event wb : pipeline(pipe.MEM)
         //
         // In assignment 5, you will use all the three pipeline registers that were passed into the WB stage,
         // regwrite, rd, and alu_result
-
+        if (r_mem_regwrite) {
+            rf_xpr.wrt0[r_mem_rd] = r_mem_alu_result;
+        }
 
 
 
