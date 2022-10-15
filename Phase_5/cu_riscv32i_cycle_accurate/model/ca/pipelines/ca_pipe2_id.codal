@@ -76,11 +76,11 @@ event id : pipeline(pipe.ID)
 
         // address for src1
         // Use the concatanation operator :: to create the desired fields from the instruction field if required
-        s_id_src1 = s_id_instr[24..20];
+        s_id_src1 = s_id_instr[19..15];
 
         // address for src2
         // Use the concatanation operator :: to create the desired fields from the instruction field if required
-        s_id_src2 = s_id_instr[19..15];
+        s_id_src2 = s_id_instr[24..20];
 
         // destination address
         // Use the concatanation operator :: to create the desired fields from the instruction field if required
@@ -91,11 +91,11 @@ event id : pipeline(pipe.ID)
         // TO optimize performance, the immediate value will always be calculated and passed to the execution stage
         // via the ID pipeline register
         // Use the concatanation operator :: to create the desired fields from the instruction field if required
-        s_id_imm_itype = (int32)(int12) (s_id_instr[11..0]); //[11:0] (12bits), sign extended to 32bits
-        s_id_imm_stype = (int32)(int11) (s_id_instr[11..5] :: s_id_instr[4..0]); //[11:5] (6bits) + [4:0] (5bits) = 11bits sign extended to 32bits
-        s_id_imm_btype = (int32)(int13) (s_id_instr[31..31] :: s_id_instr[7..7] :: s_id_instr[30..25] :: s_id_instr[11..8] :: (uint1)0);
-        s_id_imm_utype = (int32)(int20) (s_id_instr[31..12]); //[31:12] (20bits), sign extended to 32bits
-        s_id_imm_jtype = (int32)(int20) (s_id_instr[20..20] :: s_id_instr[10..1] :: s_id_instr[11..11] :: s_id_instr[19..12]); //[20] (1bit) + [10:1] (10bits) + [11] (1bit) + [19:12] (8bits) = 20bits, sign extended to 32
+        s_id_imm_itype = (int32)(int12) (s_id_instr[31..20]); //11:0 = [31..20](12bits), sign extended to 32bits //ERROR???
+        s_id_imm_stype = (int32)(int12) (s_id_instr[31..25] :: s_id_instr[11..7]); //11:5 = [31..25](7bits) + 4:0 = [11..7](5bits) = 12bits sign extended to 32bits
+        s_id_imm_btype = (int32)(int13) (s_id_instr[31..31] :: s_id_instr[7..7] :: s_id_instr[30..25] :: s_id_instr[11..8] :: (uint1)0); //12 = [31..31](1bit) + 11 = [7::7](1bit) + 10:5 = [30..25](6bits) + 4:1 = [11:8](4bits)
+        s_id_imm_utype = (int32)(int20) (s_id_instr[31..12]) << 12; //31:12 (20bits), shift by 12, then cast to 32bits
+        s_id_imm_jtype = (int32)(int20) (s_id_instr[31..31] :: s_id_instr[19..12] :: s_id_instr[20..20] :: s_id_instr[30..21]); //20 = [31..31](1bit) + 19:12 = [19..12](8bits) + 11 = [20..20](1bit) + 10:1 = [30..21](10bits) = 20bits, sign extended to 32
 
         // Register file read for src1 and src2 operands.  Similar to the immediate decode, both src1 and src2
         // values will be read in parallel from the register file as the instruction is decoded to optimize performance
