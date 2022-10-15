@@ -77,9 +77,13 @@ enum aluop
 {
     ALU_NOP = 0,        // In enums, you can specify a particular value to an element.  All other
     ALU_ADD,            // elements will have a value incremented by 1 unless assigned a specific value
+    ALU_SUB,
+    ALU_SLL,
     ALU_SLT,
     ALU_SLTU,
     ALU_XOR,
+    ALU_SRL,
+    ALU_SRA,
     ALU_OR,
     ALU_AND,
 };

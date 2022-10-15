@@ -4,15 +4,26 @@
 |                 alu_operate |        alu_operate |                 alu_operate |  0 combinatorial logic |                       1 |                         0 |                              0 |
 |                 inst_decode |     id.inst_decode |                 inst_decode |  0 combinatorial logic |                       1 |                         0 |                              0 |
 |              i_hw_itype_alu |     id.inst_decode |              i_hw_itype_alu |  0 combinatorial logic |                       1 |                         0 |                              0 |
+|              i_hw_rtype_alu |     id.inst_decode |              i_hw_rtype_alu |  0 combinatorial logic |                       1 |                         0 |                              0 |
 |            pipeline_control |   pipeline_control |            pipeline_control |  0 combinatorial logic |                       0 |                         0 |                              0 |
 | pma_hprot_inline_1_inline_1 |                    | pma_hprot_inline_1_inline_1 |  0 combinatorial logic |                       3 |                         0 |                              0 |
 |                          wb |                 wb |                          wb |  0 combinatorial logic |                       1 |                         0 |                              0 |
 |                       reset |                    |                       reset |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                      opc_or | id.inst_decode.opc |                      opc_or |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                     opc_add | id.inst_decode.opc |                     opc_add |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                     opc_and | id.inst_decode.opc |                     opc_and |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                     opc_ori | id.inst_decode.opc |                     opc_ori |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                     opc_sll | id.inst_decode.opc |                     opc_sll |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                     opc_slt | id.inst_decode.opc |                     opc_slt |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                     opc_sra | id.inst_decode.opc |                     opc_sra |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                     opc_srl | id.inst_decode.opc |                     opc_srl |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                     opc_sub | id.inst_decode.opc |                     opc_sub |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                     opc_xor | id.inst_decode.opc |                     opc_xor |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                    opc_addi | id.inst_decode.opc |                    opc_addi |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                    opc_andi | id.inst_decode.opc |                    opc_andi |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                    opc_halt | id.inst_decode.opc |                    opc_halt |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                    opc_slti | id.inst_decode.opc |                    opc_slti |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                    opc_sltu | id.inst_decode.opc |                    opc_sltu |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                    opc_xori | id.inst_decode.opc |                    opc_xori |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                   ex_output |          ex_output |                   ex_output |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                   i_hw_halt |     id.inst_decode |                   i_hw_halt |  0 combinatorial logic |                       0 |                         0 |                              0 |
@@ -32,10 +43,10 @@ Total Statistics
 |                                 Name | Sum |
 +======================================+=====+
 |     Total number of Sequential Units |   0 |
-|  Total number of Combinatorial Units |  24 |
+|  Total number of Combinatorial Units |  35 |
 | Total number of local Register Files |   0 |
 |      Total number of local Registers |   0 |
-|        Total number of local Signals |  27 |
+|        Total number of local Signals |  28 |
 +--------------------------------------+-----+
 
 
@@ -44,7 +55,7 @@ alu_operate
 +===================+==========+=======+============================================================================================================+
 |                ID | Bitwidth |  Type |                                                                                                     Detail |
 +===================+==========+=======+============================================================================================================+
-| codasip_tmp_var_0 |        3 | uint3 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
+| codasip_tmp_var_0 |        4 | uint4 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
 +-------------------+----------+-------+------------------------------------------------------------------------------------------------------------+
 
 
@@ -73,6 +84,14 @@ i_hw_itype_alu
 |                ID | Bitwidth |   Type |                                                                                                     Detail |
 +===================+==========+========+============================================================================================================+
 | codasip_tmp_var_0 |       10 | uint10 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
++-------------------+----------+--------+------------------------------------------------------------------------------------------------------------+
+
+
+i_hw_rtype_alu
++===================+==========+========+============================================================================================================+
+|                ID | Bitwidth |   Type |                                                                                                     Detail |
++===================+==========+========+============================================================================================================+
+| codasip_tmp_var_0 |       17 | uint17 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
 +-------------------+----------+--------+------------------------------------------------------------------------------------------------------------+
 
 
@@ -115,7 +134,7 @@ inst_decode
 +=============+==========+========+======================================================================================+
 |          ID | Bitwidth |   Type |                                                                               Detail |
 +=============+==========+========+======================================================================================+
-| INSTRUCTION |       10 | uint10 | Signal, created during scheduling of the unit automatically by the Codasip framework |
+| INSTRUCTION |       17 | uint17 | Signal, created during scheduling of the unit automatically by the Codasip framework |
 +-------------+----------+--------+--------------------------------------------------------------------------------------+
 
 

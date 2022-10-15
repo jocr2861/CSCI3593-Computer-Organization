@@ -12,8 +12,8 @@ var codasip_scheduling_data = {
             "detail" : [
                 { 
                     "id" : "codasip_tmp_var_0",
-                    "bits" : 3,
-                    "datatype" : "uint3",
+                    "bits" : 4,
+                    "datatype" : "uint4",
                     "detail" : "Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework"
                 }
             ]
@@ -30,8 +30,8 @@ var codasip_scheduling_data = {
             "detail" : [
                 { 
                     "id" : "INSTRUCTION",
-                    "bits" : 10,
-                    "datatype" : "uint10",
+                    "bits" : 17,
+                    "datatype" : "uint17",
                     "detail" : "Signal, created during scheduling of the unit automatically by the Codasip framework"
                 }
             ]
@@ -50,6 +50,24 @@ var codasip_scheduling_data = {
                     "id" : "codasip_tmp_var_0",
                     "bits" : 10,
                     "datatype" : "uint10",
+                    "detail" : "Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework"
+                }
+            ]
+        },
+        {
+            "element" : "i_hw_rtype_alu",
+            "instance" : "id.inst_decode",
+            "hdl" : "i_hw_rtype_alu",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 1,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+                { 
+                    "id" : "codasip_tmp_var_0",
+                    "bits" : 17,
+                    "datatype" : "uint17",
                     "detail" : "Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework"
                 }
             ]
@@ -133,9 +151,117 @@ var codasip_scheduling_data = {
             ]
         },
         {
+            "element" : "opc_or",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_or",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_add",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_add",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_and",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_and",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
             "element" : "opc_ori",
             "instance" : "id.inst_decode.opc",
             "hdl" : "opc_ori",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_sll",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_sll",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_slt",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_slt",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_sra",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_sra",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_srl",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_srl",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_sub",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_sub",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_xor",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_xor",
             "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
             "localSignal" : 0,
             "localRegister" : 0,
@@ -184,6 +310,18 @@ var codasip_scheduling_data = {
             "element" : "opc_slti",
             "instance" : "id.inst_decode.opc",
             "hdl" : "opc_slti",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_sltu",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_sltu",
             "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
             "localSignal" : 0,
             "localRegister" : 0,
@@ -457,9 +595,9 @@ var codasip_scheduling_data = {
             ]
         }
     ],
-    "combinatiorialUnit" : 24,
+    "combinatiorialUnit" : 35,
     "sequentialUnit" : 0,
-    "localSignals" : 27,
+    "localSignals" : 28,
     "localRegisters" : 0,
     "localRegisterFiles" : 0,
     "svg" : 0

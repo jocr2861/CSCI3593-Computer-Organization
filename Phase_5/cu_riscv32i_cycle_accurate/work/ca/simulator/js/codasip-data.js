@@ -2,7 +2,7 @@
 "information" : {
 "ide_version": "9.1.1-1255",
 "project_name": "cu_riscv32i_cycle_accurate",
-"date": "2022-10-15 02:03:08"
+"date": "2022-10-15 04:44:33"
 },
 "PerUnit" : [
 {
@@ -43,7 +43,7 @@
 "detail": ""
 },
 {"count": 1,
-"bitwidth": 3,
+"bitwidth": 4,
 "type": "Pipeline Register",
 "detail": ""
 }
@@ -51,7 +51,7 @@
 },
 {
 "unit": "alu_operate",
-"detail": [{"count": 1,
+"detail": [{"count": 2,
 "bitwidth": 32,
 "type": "Adder",
 "detail": ""
@@ -61,6 +61,21 @@
 "type": "Comparator",
 "detail": "operator: <"
 },
+{"count": 1,
+"bitwidth": 32,
+"type": "Logical Shift Left",
+"detail": ""
+},
+{"count": 1,
+"bitwidth": 32,
+"type": "Logical Shift Right",
+"detail": ""
+},
+{"count": 1,
+"bitwidth": 32,
+"type": "Arithmetic Shift Right",
+"detail": ""
+},
 {"count": 2,
 "bitwidth": 1,
 "type": "Multiplexer",
@@ -69,7 +84,7 @@
 {"count": 1,
 "bitwidth": 32,
 "type": "Multiplexer",
-"detail": "inputs: 7"
+"detail": "inputs: 11"
 }
 ]
 },
@@ -146,9 +161,14 @@
 {
 "unit": "inst_decode",
 "detail": [{"count": 1,
-"bitwidth": 3,
+"bitwidth": 4,
 "type": "Multiplexer",
 "detail": "inputs: 6"
+},
+{"count": 1,
+"bitwidth": 4,
+"type": "Multiplexer",
+"detail": "inputs: 10"
 }
 ]
 },
@@ -199,11 +219,11 @@
 "detail": ""
 },
 {"count": 1,
-"bitwidth": 3,
+"bitwidth": 4,
 "type": "Pipeline Register",
 "detail": ""
 },
-{"count": 3,
+{"count": 4,
 "bitwidth": 32,
 "type": "Adder",
 "detail": ""
@@ -212,6 +232,21 @@
 "bitwidth": 32,
 "type": "Comparator",
 "detail": "operator: <"
+},
+{"count": 1,
+"bitwidth": 32,
+"type": "Logical Shift Left",
+"detail": ""
+},
+{"count": 1,
+"bitwidth": 32,
+"type": "Logical Shift Right",
+"detail": ""
+},
+{"count": 1,
+"bitwidth": 32,
+"type": "Arithmetic Shift Right",
+"detail": ""
 },
 {"count": 6,
 "bitwidth": 1,
@@ -226,7 +261,7 @@
 {"count": 1,
 "bitwidth": 32,
 "type": "Multiplexer",
-"detail": "inputs: 7"
+"detail": "inputs: 11"
 },
 {"count": 1,
 "bitwidth": 32,
@@ -244,9 +279,14 @@
 "detail": "inputs: 3"
 },
 {"count": 1,
-"bitwidth": 3,
+"bitwidth": 4,
 "type": "Multiplexer",
 "detail": "inputs: 6"
+},
+{"count": 1,
+"bitwidth": 4,
+"type": "Multiplexer",
+"detail": "inputs: 10"
 }
 ],
 }

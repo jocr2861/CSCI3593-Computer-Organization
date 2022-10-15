@@ -35,6 +35,7 @@
 
 set inst_decode = i_hw_halt,
         i_hw_itype_alu;
+set inst_decode += i_hw_rtype_alu;
 
 
 // -------------------------------------------------------------------------------------------------
@@ -132,11 +133,11 @@ element i_hw_itype_alu
         s_id_jump_inst = false;
 
         // Load / store control signals
-        s_id_mem_ops = MEM_NOP;
-        s_id_memread = false;
+        s_id_mem_ops = MEM_NOP; //We are not doing anything to memory in an arithmetic operation
+        s_id_memread = false; //We are not reading from memory in an arithmetic operation
 
         // HALT Command
-        s_id_halt = false;
+        s_id_halt = false; //This is not a halt operation
     };
 };
 
@@ -144,46 +145,78 @@ element i_hw_itype_alu
 // Arithmetic instructions
 // -------------------------------------------------------------------------------------------------
 
-//element i_hw_rtype_alu
-//{
-//    use opc_rtype_alu as opc;
-//
-//    assembly { opc };
-//    binary { opc };
-//
-//    semantics
-//    {
-//        // Register file write enable
-//        s_id_regwrite =
-//
-//        // This switch statement assigns the alu operation to be performed by this instruction
-//        switch (opc)
-//        {
-//
-//        };
-//
-//        // Operand MUXes
-//        s_id_alusrc1 =
-//        s_id_alusrc2 =
-//
-//        // IMMEDIATE MUX select lines
-//        s_id_imm_gen_sel =
-//
-//        // Is this a branch instruction to take a branch if branch taken
-//        s_id_branch_inst =
-//        s_id_jump_inst =
-//
-//        // Load / store control signals
-//        s_id_mem_ops =
-//        s_id_memread =
-//
-//        // HALT Command
-//        s_id_halt =
-//    };
-//};
+element i_hw_rtype_alu
+{
+    use opc_rtype_alu as opc;
+
+    assembly { opc };
+    binary { opc };
+
+    semantics
+    {
+        // Register file write enable
+        s_id_regwrite = true;
+
+        // This switch statement assigns the alu operation to be performed by this instruction
+        switch (opc)
+        {
+            case(RTYPE_ADD):
+                s_id_aluop = ALU_ADD;
+                break;
+            case(RTYPE_SUB):
+                s_id_aluop = ALU_SUB;
+                break;
+            case(RTYPE_SLL):
+                s_id_aluop = ALU_SLL;
+                break;
+            case(RTYPE_SLT):
+                s_id_aluop = ALU_SLT;
+                break;
+            case(RTYPE_SLTU):
+                s_id_aluop = ALU_SLTU;
+                break;
+            case(RTYPE_XOR):
+                s_id_aluop = ALU_XOR;
+                break;
+            case(RTYPE_SRL):
+                s_id_aluop = ALU_SRL;
+                break;
+            case(RTYPE_SRA):
+                s_id_aluop = ALU_SRA;
+                break;
+            case(RTYPE_OR):
+                s_id_aluop = ALU_OR;
+                break;
+            case(RTYPE_AND):
+                s_id_aluop = ALU_AND;
+                break;
+            default:
+                codasip_fatal(ALU_ERROR, "Rtype Decoder case: %d\n", opc);
+                break;
+        };
+
+        // Operand MUXes
+        s_id_alusrc1 = ALU_SRC1_SEL_RF; //src1 comes from the register file
+        s_id_alusrc2 = ALU_SRC2_SEL_RF; //src2 comes from the register file AS WELL
+
+        // IMMEDIATE MUX select lines
+        s_id_imm_gen_sel = RTYPE_IMM_SEL; //NOT A REAL MUX...
+
+        // Is this a branch instruction to take a branch if branch taken
+        s_id_branch_inst = false;
+        s_id_jump_inst = false;
+
+        // Load / store control signals
+        s_id_mem_ops = MEM_NOP; //We are not doing anything to memory in an arithmetic operation
+        s_id_memread = false; //We are not reading from memory in an arithmetic operation
+
+        // HALT Command
+        s_id_halt = false; //This is not a halt operation
+    };
+};
 
 // -------------------------------------------------------------------------------------------------
-// Rtype Immediate shif instructions
+// Rtype Immediate shift instructions
 // -------------------------------------------------------------------------------------------------
 
 //element i_hw_rtype_shift

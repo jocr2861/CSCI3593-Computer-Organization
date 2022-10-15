@@ -1,7 +1,7 @@
 List of tracked instructions in decoders
 
 
-Decoder: inst_decode (tracked instructions: 7)
+Decoder: inst_decode (tracked instructions: 17)
 
 "halt"
 "addi"
@@ -10,3 +10,13 @@ Decoder: inst_decode (tracked instructions: 7)
 "xori"
 "ori"
 "andi"
+"add"
+"sub"
+"sll"
+"slt"
+"sltu"
+"xor"
+"srl"
+"sra"
+"or"
+"and"
