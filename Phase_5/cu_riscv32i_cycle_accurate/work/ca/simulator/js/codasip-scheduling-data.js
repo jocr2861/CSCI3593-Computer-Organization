@@ -12,8 +12,8 @@ var codasip_scheduling_data = {
             "detail" : [
                 { 
                     "id" : "codasip_tmp_var_0",
-                    "bits" : 1,
-                    "datatype" : "uint1",
+                    "bits" : 3,
+                    "datatype" : "uint3",
                     "detail" : "Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework"
                 }
             ]

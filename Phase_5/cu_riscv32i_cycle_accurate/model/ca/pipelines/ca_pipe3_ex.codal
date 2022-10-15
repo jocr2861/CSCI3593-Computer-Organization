@@ -119,7 +119,22 @@ event alu_operate : pipeline(pipe.EX)
                 s_ex_alu_result = 0; //IS THIS WHAT A NOP SHOULD DO?
                 break;
             case(ALU_ADD):
-                s_ex_alu_result = s_ex_src1_operand + s_ex_src2_operand;
+                s_ex_alu_result = s_ex_src1_operand + s_ex_src2_operand; //result = src1 + scr2
+                break;
+            case(ALU_SLT):
+                s_ex_alu_result = ((int32)s_ex_src1_operand < (int32)s_ex_src2_operand) ? true : false; //Set result true if src1 < src2, otherwise set result false
+                break;
+            case(ALU_SLTU):
+                s_ex_alu_result = ((uint32)s_ex_src1_operand < (uint32)s_ex_src2_operand) ? true : false; //(Unsigned comparison) Set result true if src1 < src2, otherwise set result false
+                break;
+            case(ALU_XOR):
+                s_ex_alu_result = (uint32)s_ex_src1_operand ^ (uint32)s_ex_src2_operand; //(Unsigned comparison) result = src1 ^(XOR) src2
+                break;
+            case(ALU_OR):
+                s_ex_alu_result = (uint32)s_ex_src1_operand | (uint32)s_ex_src2_operand; //(Unsigned comparison) result = src1 | src2
+                break;
+            case(ALU_AND):
+                s_ex_alu_result = (uint32)s_ex_src1_operand & (uint32)s_ex_src2_operand; //(Unsigned comparison) result = src1 & src2
                 break;
             default:
                 codasip_fatal(ALU_ERROR, "ALU Operation Select Mux case: %d\n", r_id_aluop); //ALU_ERROR???

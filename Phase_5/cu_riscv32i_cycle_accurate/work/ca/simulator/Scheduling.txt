@@ -44,7 +44,7 @@ alu_operate
 +===================+==========+=======+============================================================================================================+
 |                ID | Bitwidth |  Type |                                                                                                     Detail |
 +===================+==========+=======+============================================================================================================+
-| codasip_tmp_var_0 |        1 | uint1 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
+| codasip_tmp_var_0 |        3 | uint3 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
 +-------------------+----------+-------+------------------------------------------------------------------------------------------------------------+
 
 

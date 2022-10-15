@@ -100,8 +100,23 @@ element i_hw_itype_alu
             case ITYPE_ADDI:
                 s_id_aluop = ALU_ADD;
                 break;
+            case ITYPE_SLTI:
+                s_id_aluop = ALU_SLT;
+                break;
+            case ITYPE_SLTIU:
+                s_id_aluop = ALU_SLTU;
+                break;
+            case ITYPE_XORI:
+                s_id_aluop = ALU_XOR;
+                break;
+            case ITYPE_ORI:
+                s_id_aluop = ALU_OR;
+                break;
+            case ITYPE_ANDI:
+                s_id_aluop = ALU_AND;
+                break;
             default:
-//                codasip_fatal(ALU_ERROR, "ALU Immediate Decoder case: %d\n", opc);
+                codasip_fatal(ALU_ERROR, "ALU Immediate Decoder case: %d\n", opc);
                 break;
         };
 

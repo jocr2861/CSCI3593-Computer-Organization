@@ -2,7 +2,7 @@
 "information" : {
 "ide_version": "9.1.1-1255",
 "project_name": "cu_riscv32i_cycle_accurate",
-"date": "2022-10-14 20:04:40"
+"date": "2022-10-15 02:03:08"
 },
 "PerUnit" : [
 {
@@ -27,7 +27,7 @@
 "type": "Register",
 "detail": ""
 },
-{"count": 14,
+{"count": 13,
 "bitwidth": 1,
 "type": "Pipeline Register",
 "detail": ""
@@ -41,6 +41,11 @@
 "bitwidth": 5,
 "type": "Pipeline Register",
 "detail": ""
+},
+{"count": 1,
+"bitwidth": 3,
+"type": "Pipeline Register",
+"detail": ""
 }
 ]
 },
@@ -51,10 +56,20 @@
 "type": "Adder",
 "detail": ""
 },
+{"count": 2,
+"bitwidth": 32,
+"type": "Comparator",
+"detail": "operator: <"
+},
+{"count": 2,
+"bitwidth": 1,
+"type": "Multiplexer",
+"detail": "inputs: 2"
+},
 {"count": 1,
 "bitwidth": 32,
 "type": "Multiplexer",
-"detail": "inputs: 2"
+"detail": "inputs: 7"
 }
 ]
 },
@@ -131,9 +146,9 @@
 {
 "unit": "inst_decode",
 "detail": [{"count": 1,
-"bitwidth": 1,
+"bitwidth": 3,
 "type": "Multiplexer",
-"detail": "inputs: 2"
+"detail": "inputs: 6"
 }
 ]
 },
@@ -168,7 +183,7 @@
 "type": "Register",
 "detail": ""
 },
-{"count": 14,
+{"count": 13,
 "bitwidth": 1,
 "type": "Pipeline Register",
 "detail": ""
@@ -183,20 +198,35 @@
 "type": "Pipeline Register",
 "detail": ""
 },
+{"count": 1,
+"bitwidth": 3,
+"type": "Pipeline Register",
+"detail": ""
+},
 {"count": 3,
 "bitwidth": 32,
 "type": "Adder",
 "detail": ""
 },
-{"count": 6,
+{"count": 2,
 "bitwidth": 32,
+"type": "Comparator",
+"detail": "operator: <"
+},
+{"count": 6,
+"bitwidth": 1,
 "type": "Multiplexer",
 "detail": "inputs: 2"
 },
 {"count": 5,
-"bitwidth": 1,
+"bitwidth": 32,
 "type": "Multiplexer",
 "detail": "inputs: 2"
+},
+{"count": 1,
+"bitwidth": 32,
+"type": "Multiplexer",
+"detail": "inputs: 7"
 },
 {"count": 1,
 "bitwidth": 32,
@@ -212,6 +242,11 @@
 "bitwidth": 32,
 "type": "Multiplexer",
 "detail": "inputs: 3"
+},
+{"count": 1,
+"bitwidth": 3,
+"type": "Multiplexer",
+"detail": "inputs: 6"
 }
 ],
 }
