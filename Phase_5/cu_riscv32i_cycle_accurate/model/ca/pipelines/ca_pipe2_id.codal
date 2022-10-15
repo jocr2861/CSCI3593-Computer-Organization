@@ -91,7 +91,8 @@ event id : pipeline(pipe.ID)
         // TO optimize performance, the immediate value will always be calculated and passed to the execution stage
         // via the ID pipeline register
         // Use the concatanation operator :: to create the desired fields from the instruction field if required
-        s_id_imm_itype = (int32)(int12) (s_id_instr[31..20]); //11:0 = [31..20](12bits), sign extended to 32bits //ERROR???
+        // s_id_imm_rtype = (int32)(int12) (s_id_instr[31..20]); //11:0 = [31..20](12bits), sign extended to 32bits
+        s_id_imm_itype = (int32)(int12) (s_id_instr[31..20]); //11:0 = [31..20](12bits), sign extended to 32bits
         s_id_imm_stype = (int32)(int12) (s_id_instr[31..25] :: s_id_instr[11..7]); //11:5 = [31..25](7bits) + 4:0 = [11..7](5bits) = 12bits sign extended to 32bits
         s_id_imm_btype = (int32)(int13) (s_id_instr[31..31] :: s_id_instr[7..7] :: s_id_instr[30..25] :: s_id_instr[11..8] :: (uint1)0); //12 = [31..31](1bit) + 11 = [7::7](1bit) + 10:5 = [30..25](6bits) + 4:1 = [11:8](4bits)
         s_id_imm_utype = (int32)(int20) (s_id_instr[31..12]) << 12; //31:12 (20bits), shift by 12, then cast to 32bits
@@ -168,9 +169,9 @@ event id_output : pipeline(pipe.ID)
         // Complete the switch statement below using the pipeline register resource that you added in the 
         // previous step of this assignment.
         switch (s_id_imm_gen_sel) {
-            case RTYPE_IMM_SEL:
-                r_id_src2_imm = s_id_imm_rtype;
-                break;
+            // case RTYPE_IMM_SEL:
+            //     r_id_src2_imm = s_id_imm_rtype;
+            //     break;
             case ITYPE_IMM_SEL:
                 r_id_src2_imm = s_id_imm_itype;
                 break;

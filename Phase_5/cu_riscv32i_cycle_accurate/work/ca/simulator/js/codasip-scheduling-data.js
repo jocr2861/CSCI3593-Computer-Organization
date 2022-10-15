@@ -73,6 +73,24 @@ var codasip_scheduling_data = {
             ]
         },
         {
+            "element" : "i_hw_rtype_shift",
+            "instance" : "id.inst_decode",
+            "hdl" : "i_hw_rtype_shift",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 1,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+                { 
+                    "id" : "codasip_tmp_var_0",
+                    "bits" : 17,
+                    "datatype" : "uint17",
+                    "detail" : "Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework"
+                }
+            ]
+        },
+        {
             "element" : "pipeline_control",
             "instance" : "pipeline_control",
             "hdl" : "pipeline_control",
@@ -307,6 +325,18 @@ var codasip_scheduling_data = {
             ]
         },
         {
+            "element" : "opc_slli",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_slli",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
             "element" : "opc_slti",
             "instance" : "id.inst_decode.opc",
             "hdl" : "opc_slti",
@@ -322,6 +352,30 @@ var codasip_scheduling_data = {
             "element" : "opc_sltu",
             "instance" : "id.inst_decode.opc",
             "hdl" : "opc_sltu",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_srai",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_srai",
+            "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
+            "localSignal" : 0,
+            "localRegister" : 0,
+            "localRegisterFile" : 0,
+            "SVGlink" : "",
+            "detail" : [
+            ]
+        },
+        {
+            "element" : "opc_srli",
+            "instance" : "id.inst_decode.opc",
+            "hdl" : "opc_srli",
             "numClocks" : {"first" : "0", "second" : "combinatorial logic"},
             "localSignal" : 0,
             "localRegister" : 0,
@@ -595,9 +649,9 @@ var codasip_scheduling_data = {
             ]
         }
     ],
-    "combinatiorialUnit" : 35,
+    "combinatiorialUnit" : 39,
     "sequentialUnit" : 0,
-    "localSignals" : 28,
+    "localSignals" : 29,
     "localRegisters" : 0,
     "localRegisterFiles" : 0,
     "svg" : 0

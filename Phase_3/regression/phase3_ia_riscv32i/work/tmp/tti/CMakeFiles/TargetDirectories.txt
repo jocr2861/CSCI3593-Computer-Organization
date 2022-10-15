@@ -1,8 +1,0 @@
-/home/project/phase3_ia_riscv32i/work/tmp/tti/CMakeFiles/install/strip.dir
-/home/project/phase3_ia_riscv32i/work/tmp/tti/CMakeFiles/install/local.dir
-/home/project/phase3_ia_riscv32i/work/tmp/tti/CMakeFiles/codasip_tti.dir
-/home/project/phase3_ia_riscv32i/work/tmp/tti/CMakeFiles/rebuild_cache.dir
-/home/project/phase3_ia_riscv32i/work/tmp/tti/CMakeFiles/intrinsics_gen.dir
-/home/project/phase3_ia_riscv32i/work/tmp/tti/CMakeFiles/edit_cache.dir
-/home/project/phase3_ia_riscv32i/work/tmp/tti/CMakeFiles/list_install_components.dir
-/home/project/phase3_ia_riscv32i/work/tmp/tti/CMakeFiles/install.dir

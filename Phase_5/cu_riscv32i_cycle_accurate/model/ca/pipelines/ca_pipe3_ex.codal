@@ -125,7 +125,7 @@ event alu_operate : pipeline(pipe.EX)
                 s_ex_alu_result = (int32)(s_ex_src1_operand - s_ex_src2_operand); //result = src1 - src2
                 break;
             case(ALU_SLL):
-                s_ex_alu_result = (int32)(s_ex_src1_operand << (uint5)s_ex_src2_operand); //result = src1 << src2 (uint5 - to make sure that we don't go more than 32 bits)
+                s_ex_alu_result = (int32)((uint32)s_ex_src1_operand << (uint5)s_ex_src2_operand); //result = src1 << src2 (uint5 - to make sure that we don't go more than 32 bits)
                 break;
             case(ALU_SLT):
                 s_ex_alu_result = (int32)(((int32)s_ex_src1_operand < (int32)s_ex_src2_operand) ? true : false); //Set result true if src1 < src2, otherwise set result false

@@ -1,1 +1,0 @@
-/home/project/phase3_ia_riscv32i/work/ia/sdk/bin/libphase3_ia_riscv32i-ia-tti.so

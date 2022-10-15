@@ -2,7 +2,7 @@
 "information" : {
 "ide_version": "9.1.1-1255",
 "project_name": "cu_riscv32i_cycle_accurate",
-"date": "2022-10-15 04:44:33"
+"date": "2022-10-15 05:42:04"
 },
 "PerUnit" : [
 {
@@ -135,7 +135,7 @@
 {"count": 1,
 "bitwidth": 32,
 "type": "Multiplexer",
-"detail": "inputs: 6"
+"detail": "inputs: 5"
 }
 ]
 },
@@ -164,6 +164,11 @@
 "bitwidth": 4,
 "type": "Multiplexer",
 "detail": "inputs: 6"
+},
+{"count": 1,
+"bitwidth": 4,
+"type": "Multiplexer",
+"detail": "inputs: 3"
 },
 {"count": 1,
 "bitwidth": 4,
@@ -271,7 +276,7 @@
 {"count": 1,
 "bitwidth": 32,
 "type": "Multiplexer",
-"detail": "inputs: 6"
+"detail": "inputs: 5"
 },
 {"count": 1,
 "bitwidth": 32,
@@ -282,6 +287,11 @@
 "bitwidth": 4,
 "type": "Multiplexer",
 "detail": "inputs: 6"
+},
+{"count": 1,
+"bitwidth": 4,
+"type": "Multiplexer",
+"detail": "inputs: 3"
 },
 {"count": 1,
 "bitwidth": 4,

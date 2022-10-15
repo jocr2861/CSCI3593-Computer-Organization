@@ -5,6 +5,7 @@
 |                 inst_decode |     id.inst_decode |                 inst_decode |  0 combinatorial logic |                       1 |                         0 |                              0 |
 |              i_hw_itype_alu |     id.inst_decode |              i_hw_itype_alu |  0 combinatorial logic |                       1 |                         0 |                              0 |
 |              i_hw_rtype_alu |     id.inst_decode |              i_hw_rtype_alu |  0 combinatorial logic |                       1 |                         0 |                              0 |
+|            i_hw_rtype_shift |     id.inst_decode |            i_hw_rtype_shift |  0 combinatorial logic |                       1 |                         0 |                              0 |
 |            pipeline_control |   pipeline_control |            pipeline_control |  0 combinatorial logic |                       0 |                         0 |                              0 |
 | pma_hprot_inline_1_inline_1 |                    | pma_hprot_inline_1_inline_1 |  0 combinatorial logic |                       3 |                         0 |                              0 |
 |                          wb |                 wb |                          wb |  0 combinatorial logic |                       1 |                         0 |                              0 |
@@ -22,8 +23,11 @@
 |                    opc_addi | id.inst_decode.opc |                    opc_addi |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                    opc_andi | id.inst_decode.opc |                    opc_andi |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                    opc_halt | id.inst_decode.opc |                    opc_halt |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                    opc_slli | id.inst_decode.opc |                    opc_slli |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                    opc_slti | id.inst_decode.opc |                    opc_slti |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                    opc_sltu | id.inst_decode.opc |                    opc_sltu |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                    opc_srai | id.inst_decode.opc |                    opc_srai |  0 combinatorial logic |                       0 |                         0 |                              0 |
+|                    opc_srli | id.inst_decode.opc |                    opc_srli |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                    opc_xori | id.inst_decode.opc |                    opc_xori |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                   ex_output |          ex_output |                   ex_output |  0 combinatorial logic |                       0 |                         0 |                              0 |
 |                   i_hw_halt |     id.inst_decode |                   i_hw_halt |  0 combinatorial logic |                       0 |                         0 |                              0 |
@@ -43,10 +47,10 @@ Total Statistics
 |                                 Name | Sum |
 +======================================+=====+
 |     Total number of Sequential Units |   0 |
-|  Total number of Combinatorial Units |  35 |
+|  Total number of Combinatorial Units |  39 |
 | Total number of local Register Files |   0 |
 |      Total number of local Registers |   0 |
-|        Total number of local Signals |  28 |
+|        Total number of local Signals |  29 |
 +--------------------------------------+-----+
 
 
@@ -88,6 +92,14 @@ i_hw_itype_alu
 
 
 i_hw_rtype_alu
++===================+==========+========+============================================================================================================+
+|                ID | Bitwidth |   Type |                                                                                                     Detail |
++===================+==========+========+============================================================================================================+
+| codasip_tmp_var_0 |       17 | uint17 | Signal, created from condition expressions (if, switch, while, ...) automatically by the Codasip framework |
++-------------------+----------+--------+------------------------------------------------------------------------------------------------------------+
+
+
+i_hw_rtype_shift
 +===================+==========+========+============================================================================================================+
 |                ID | Bitwidth |   Type |                                                                                                     Detail |
 +===================+==========+========+============================================================================================================+

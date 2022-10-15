@@ -36,6 +36,7 @@
 set inst_decode = i_hw_halt,
         i_hw_itype_alu;
 set inst_decode += i_hw_rtype_alu;
+set inst_decode += i_hw_rtype_shift;
 
 
 // -------------------------------------------------------------------------------------------------
@@ -129,8 +130,8 @@ element i_hw_itype_alu
         s_id_imm_gen_sel = ITYPE_IMM_SEL;
 
         // Is this a branch instruction to take a branch if branch taken
-        s_id_branch_inst = false;
-        s_id_jump_inst = false;
+        s_id_branch_inst = false; //We are not branching
+        s_id_jump_inst = false; //We are not jumping
 
         // Load / store control signals
         s_id_mem_ops = MEM_NOP; //We are not doing anything to memory in an arithmetic operation
@@ -200,11 +201,11 @@ element i_hw_rtype_alu
         s_id_alusrc2 = ALU_SRC2_SEL_RF; //src2 comes from the register file AS WELL
 
         // IMMEDIATE MUX select lines
-        s_id_imm_gen_sel = RTYPE_IMM_SEL; //NOT A REAL MUX...
+        s_id_imm_gen_sel = DONT_CARE; //RTYPE_IMM_SEL IS NOT A REAL MUX AND WE DO NOT NEED IMMEDIATE HERE...
 
         // Is this a branch instruction to take a branch if branch taken
-        s_id_branch_inst = false;
-        s_id_jump_inst = false;
+        s_id_branch_inst = false; //We are not branching
+        s_id_jump_inst = false; //We are not jumping
 
         // Load / store control signals
         s_id_mem_ops = MEM_NOP; //We are not doing anything to memory in an arithmetic operation
@@ -219,43 +220,54 @@ element i_hw_rtype_alu
 // Rtype Immediate shift instructions
 // -------------------------------------------------------------------------------------------------
 
-//element i_hw_rtype_shift
-//{
-//    use opc_rtype_shift as opc;
-//
-//    assembly { opc };
-//    binary { opc };
-//
-//    semantics
-//    {
-//        // Register file write enable
-//        s_id_regwrite =
-//
-//        // This switch statement assigns the alu operation to be performed by this instruction
-//        switch (opc)
-//        {
-//
-//        };
-//
-//        // Operand MUXes
-//        s_id_alusrc1 =
-//        s_id_alusrc2 =
-//
-//        // IMMEDIATE MUX select lines
-//        s_id_imm_gen_sel =
-//
-//        // Is this a branch instruction to take a branch if branch taken
-//        s_id_branch_inst =
-//        s_id_jump_inst =
-//
-//        // Load / store control signals
-//        s_id_mem_ops =
-//        s_id_memread =
-//
-//        // HALT Command
-//        s_id_halt =
-//    };
-//};
+element i_hw_rtype_shift
+{
+    use opc_rtype_shift as opc;
+
+    assembly { opc };
+    binary { opc };
+
+    semantics
+    {
+        // Register file write enable
+        s_id_regwrite = true;
+
+        // This switch statement assigns the alu operation to be performed by this instruction
+        switch (opc)
+        {
+            case(RTYPE_SLLI):
+                s_id_aluop = ALU_SLL;
+                break;
+            case(RTYPE_SRLI):
+                s_id_aluop = ALU_SRL;
+                break;
+            case(RTYPE_SRAI):
+                s_id_aluop = ALU_SRA;
+                break;
+            default:
+                codasip_fatal(ALU_ERROR, "Rtype Decoder case: %d\n", opc);
+                break;
+        };
+
+        // Operand MUXes
+        s_id_alusrc1 = ALU_SRC1_SEL_RF; //src1 comes from the register file
+        s_id_alusrc2 = ALU_SRC2_SEL_IMM; //src1 comes from the IMMEDIATE
+
+        // IMMEDIATE MUX select lines
+        s_id_imm_gen_sel = ITYPE_IMM_SEL; //RTYPE_IMM_SEL IS NOT A REAL MUX, SO USE THE ITYPE_IMM_SEL VALUE...
+
+        // Is this a branch instruction to take a branch if branch taken
+        s_id_branch_inst = false; //We are not branching
+        s_id_jump_inst = false; //We are not jumping
+
+        // Load / store control signals
+        s_id_mem_ops = MEM_NOP; //We are not doing anything to memory in an arithmetic operation
+        s_id_memread = false; //We are not reading from memory in an arithmetic operation
+
+        // HALT Command
+        s_id_halt = false; //This is not a halt operation
+    };
+};
 
 
 // -------------------------------------------------------------------------------------------------

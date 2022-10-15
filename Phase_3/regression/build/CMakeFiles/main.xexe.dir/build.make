@@ -60,7 +60,7 @@ include CMakeFiles/main.xexe.dir/flags.make
 CMakeFiles/main.xexe.dir/home/project/regression/src/regression.s.o: CMakeFiles/main.xexe.dir/flags.make
 CMakeFiles/main.xexe.dir/home/project/regression/src/regression.s.o: /home/project/regression/src/regression.s
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/project/regression/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building ASM object CMakeFiles/main.xexe.dir/home/project/regression/src/regression.s.o"
-	/home/project/phase3_ia_riscv32i/work/ia/sdk/bin/phase3_ia_riscv32i-ia-clang $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/main.xexe.dir/home/project/regression/src/regression.s.o -c /home/project/regression/src/regression.s
+	/home/project/cu_riscv32i_cycle_accurate/work/ia/sdk/bin/cu_riscv32i_cycle_accurate-ia-clang $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/main.xexe.dir/home/project/regression/src/regression.s.o -c /home/project/regression/src/regression.s
 
 # Object files for target main.xexe
 main_xexe_OBJECTS = \

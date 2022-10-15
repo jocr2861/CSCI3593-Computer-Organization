@@ -84,7 +84,7 @@ _start:
     nop
     nop
     ori x6, x3, 1         // 0x1 | 0x1 = 0x1, x6 = 1
-    nop                 //x6 = 1
+    nop                 //x6 = -1
     nop
     nop
     andi x7, x2, 0         // 0x0 & 0x0 = 0x0, x7 = 0
@@ -100,12 +100,12 @@ _start:
     nop
     nop
     andi x7, x3, 1         // 0x1 & 0x1 = 0x1, x7 = 1
-    nop                 //x7 = -2
+    nop                 //x7 = -2 (AKA 0xfffffffe)
     nop
     nop
     nop
     nop                 //x7 = 1
-  	halt
+  	# halt
  	nop
  	nop
  	nop
@@ -230,7 +230,7 @@ _start:
     nop
     nop
     or x14, x3, x3         // 0 | 0 = 0 = x14
-    nop                 //x13 = 0
+    nop                 //x13 = -1 (AKA 0xffffffff)
     nop
     nop
     or x14, x3, x4         // 0 | 1 = 1 = x14
@@ -263,7 +263,7 @@ _start:
     nop
     nop
     nop                 //x15 = 1
- 	halt
+ 	# halt
  	nop
  	nop
  	nop
