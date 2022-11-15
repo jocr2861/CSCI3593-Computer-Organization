@@ -37,6 +37,9 @@ set inst_decode = i_hw_halt,
         i_hw_itype_alu;
 set inst_decode += i_hw_rtype_alu;
 set inst_decode += i_hw_rtype_shift;
+set inst_decode += i_hw_btype_branches;
+set inst_decode += i_hw_jtype_jlink;
+set inst_decode += i_hw_itype_jlreg;
 
 
 // -------------------------------------------------------------------------------------------------
@@ -70,6 +73,8 @@ element i_hw_halt
         // Is this a branch instruction to take a branch if branch taken
         s_id_branch_inst = false;
         s_id_jump_inst = false;
+        s_id_branchop = BRANCH_FALSE; //Never branch on a halt
+        s_id_rfwtsel = DONT_CARE; //We are not writing to the register file or memory, so this does not matter
 
         // Load / store control signals
         s_id_mem_ops = MEM_NOP;
@@ -132,6 +137,8 @@ element i_hw_itype_alu
         // Is this a branch instruction to take a branch if branch taken
         s_id_branch_inst = false; //We are not branching
         s_id_jump_inst = false; //We are not jumping
+        s_id_branchop = BRANCH_FALSE; //Never branch on a I-Type ALU operation
+        s_id_rfwtsel = false; //Use the ALU output for the alu_result
 
         // Load / store control signals
         s_id_mem_ops = MEM_NOP; //We are not doing anything to memory in an arithmetic operation
@@ -206,6 +213,8 @@ element i_hw_rtype_alu
         // Is this a branch instruction to take a branch if branch taken
         s_id_branch_inst = false; //We are not branching
         s_id_jump_inst = false; //We are not jumping
+        s_id_branchop = BRANCH_FALSE; //Never branch on a R-Type ALU operation
+        s_id_rfwtsel = false; //Use the ALU output for the alu_result
 
         // Load / store control signals
         s_id_mem_ops = MEM_NOP; //We are not doing anything to memory in an arithmetic operation
@@ -251,7 +260,7 @@ element i_hw_rtype_shift
 
         // Operand MUXes
         s_id_alusrc1 = ALU_SRC1_SEL_RF; //src1 comes from the register file
-        s_id_alusrc2 = ALU_SRC2_SEL_IMM; //src1 comes from the IMMEDIATE
+        s_id_alusrc2 = ALU_SRC2_SEL_IMM; //src2 comes from the IMMEDIATE
 
         // IMMEDIATE MUX select lines
         s_id_imm_gen_sel = ITYPE_IMM_SEL; //RTYPE_IMM_SEL IS NOT A REAL MUX, SO USE THE ITYPE_IMM_SEL VALUE...
@@ -259,6 +268,8 @@ element i_hw_rtype_shift
         // Is this a branch instruction to take a branch if branch taken
         s_id_branch_inst = false; //We are not branching
         s_id_jump_inst = false; //We are not jumping
+        s_id_branchop = BRANCH_FALSE; //Never branch on a R-Type ALU immediate shift operation
+        s_id_rfwtsel = false; // Use the ALU output for the alu_result
 
         // Load / store control signals
         s_id_mem_ops = MEM_NOP; //We are not doing anything to memory in an arithmetic operation
@@ -274,43 +285,62 @@ element i_hw_rtype_shift
 // Branch instructions
 // -------------------------------------------------------------------------------------------------
 
-//element i_hw_btype_branches
-//{
-//    use opc_btype_branches as opc;
-//
-//    assembly { opc };
-//    binary { opc };
-//
-//    semantics
-//    {
-//        // Register file write enable
-//        s_id_regwrite =
-//
-//        // This switch statement assigns the alu operation to be performed by this instruction
-//        switch (opc)
-//        {
-//
-//        };
-//
-//        // Operand MUXes
-//        s_id_alusrc1 =
-//        s_id_alusrc2 =
-//
-//        // IMMEDIATE MUX select lines
-//        s_id_imm_gen_sel =
-//
-//        // Is this a branch instruction to take a branch if branch taken
-//        s_id_branch_inst =
-//        s_id_jump_inst =
-//
-//        // Load / store control signals
-//        s_id_mem_ops =
-//        s_id_memread =
-//
-//        // HALT Command
-//        s_id_halt =
-//    };
-//};
+element i_hw_btype_branches
+{
+    use opc_btype_branches as opc;
+
+    assembly { opc };
+    binary { opc };
+
+    semantics
+    {
+        // Register file write enable
+        s_id_regwrite = false;
+
+        s_id_aluop = ALU_SUB; //Perform a subtraction to determine the alu_zero value
+
+        // Operand MUXes
+        s_id_alusrc1 = ALU_SRC1_SEL_RF; //src1 comes from the register file
+        s_id_alusrc2 = ALU_SRC2_SEL_RF; //src2 comes from the register file
+
+        // IMMEDIATE MUX select lines
+        s_id_imm_gen_sel = BTYPE_IMM_SEL; //Use the branch immediate type
+
+        // Is this a branch instruction to take a branch if branch taken
+        s_id_branch_inst = true; //This is a branch instruction
+        s_id_jump_inst = false; //This is not a jump instruction
+        s_id_rfwtsel = DONT_CARE; //We are not writing to the register file or memory, so this doesn't matter
+        // This switch statement assigns the branch operation to be performed by this instruction
+        switch (opc)
+        {
+            case(BTYPE_BEQ):
+                s_id_branchop = BRANCH_COND_TRUE; //Take branch if ALU output is zero
+                break;
+            case(BTYPE_BNE):
+                s_id_branchop = BRANCH_COND_FALSE; //Take branch if ALU output is NOT zero
+                break;
+            case(BTYPE_BLT):
+                s_id_branchop = BRANCH_COND_FALSE; //Take branch if ALU output is NOT zero
+                break;
+            case(BTYPE_BLTU):
+                s_id_branchop = BRANCH_COND_FALSE; //Take branch if ALU output is NOT zero
+                break;
+            case(BTYPE_BGE):
+                s_id_branchop = BRANCH_COND_TRUE; //Take branch if ALU output is zero
+                break;
+            case(BTYPE_BGEU):
+                s_id_branchop = BRANCH_COND_TRUE; //Take branch if ALU output is zero
+                break;
+        };
+
+        // Load / store control signals
+        s_id_mem_ops = MEM_NOP; //We are not doing anything with memory in a branch instruction
+        s_id_memread = false; //We are not reading from memory in a branch instruction
+
+        // HALT Command
+        s_id_halt = false; //This is not a halt instruction
+    };
+};
 
 // -------------------------------------------------------------------------------------------------
 // LIU and AUIPC and LUI instructions
@@ -357,84 +387,80 @@ element i_hw_rtype_shift
 // JAL instruction
 // -------------------------------------------------------------------------------------------------
 
-//element i_hw_jtype_jlink
-//{
-//    use opc_jtype_jlink as opc;
-//
-//    assembly { opc };
-//    binary { opc };
-//
-//    semantics
-//    {
-//        // Register file write enable
-//        s_id_regwrite =
-//
-//        // This switch statement assigns the alu operation to be performed by this instruction
-//        switch (opc)
-//        {
-//
-//        };
-//
-//        // Operand MUXes
-//        s_id_alusrc1 =
-//        s_id_alusrc2 =
-//
-//        // IMMEDIATE MUX select lines
-//        s_id_imm_gen_sel =
-//
-//        // Is this a branch instruction to take a branch if branch taken
-//        s_id_branch_inst =
-//        s_id_jump_inst =
-//
-//        // Load / store control signals
-//        s_id_mem_ops =
-//        s_id_memread =
-//
-//        // HALT Command
-//        s_id_halt =
-//    };
-//};
+element i_hw_jtype_jlink
+{
+    use opc_jtype_jlink as opc;
+
+    assembly { opc };
+    binary { opc };
+
+    semantics
+    {
+        // Register file write enable
+        s_id_regwrite = true; //Write the PC+4 to the register file
+
+        s_id_aluop = ALU_ADD; //Perform an addition (This value is unused, but is necessary for the program to run)
+
+        // Operand MUXes
+        s_id_alusrc1 = ALU_SRC1_SEL_RF; //src1 comes from the register file
+        s_id_alusrc2 = ALU_SRC2_SEL_IMM; //src2 comes from the IMMEDIATE
+
+        // IMMEDIATE MUX select lines
+        s_id_imm_gen_sel = JTYPE_IMM_SEL; //This is a J-Type instruction
+
+        // Is this a branch instruction to take a branch if branch taken
+        s_id_branch_inst = true; //This is a "branch" instruction
+        s_id_jump_inst = false; //This is a jump, but we will use the PC+IMM value for the target address and NOT the alu output (AKA the register file)
+        s_id_branchop = BRANCH_TRUE; //Always take branch
+        s_id_rfwtsel = 1; //Take the PC+4 value and not the ALU output for the value to write to the register file
+
+        // Load / store control signals
+        s_id_mem_ops = MEM_NOP; //We are not doing anything with memory in a jump instruction
+        s_id_memread = false; //We are not reading from memory in a jump instruction
+
+        // HALT Command
+        s_id_halt = false; //This is not a halt instruction
+    };
+};
 
 // -------------------------------------------------------------------------------------------------
 // JALR instruction
 // -------------------------------------------------------------------------------------------------
-//element i_hw_itype_jlreg
-//{
-//    use opc_itype_jlreg as opc;
-//
-//    assembly { opc };
-//    binary { opc };
-//
-//    semantics
-//    {
-//        // Register file write enable
-//        s_id_regwrite =
-//
-//        // This switch statement assigns the alu operation to be performed by this instruction
-//        switch (opc)
-//        {
-//
-//        };
-//
-//        // Operand MUXes
-//        s_id_alusrc1 =
-//        s_id_alusrc2 =
-//
-//        // IMMEDIATE MUX select lines
-//        s_id_imm_gen_sel =
-//
-//        // Is this a branch instruction to take a branch if branch taken
-//        s_id_branch_inst =
-//        s_id_jump_inst =
-//
-//        // Load / store control signals
-//        s_id_mem_ops =
-//        s_id_memread =
-//
-//        // HALT Command
-//        s_id_halt =
-//    };
-//};
+element i_hw_itype_jlreg
+{
+    use opc_itype_jlreg as opc;
+
+    assembly { opc };
+    binary { opc };
+
+    semantics
+    {
+        // Register file write enable
+        s_id_regwrite = true; //Write the PC+4 to the register file
+
+        s_id_aluop = ALU_ADD; //Perform an addition to determine the target_address value as register+IMM
+
+        // Operand MUXes
+        s_id_alusrc1 = ALU_SRC1_SEL_RF; //src1 comes from the register file
+        s_id_alusrc2 = ALU_SRC2_SEL_IMM; //src2 comes from the IMMEDIATE
+
+        // IMMEDIATE MUX select lines
+        s_id_imm_gen_sel = JTYPE_IMM_SEL; //This is a J-Type instruction
+
+        // Is this a branch instruction to take a branch if branch taken
+        s_id_branch_inst = false; //This is not a "branch" instruction ?????
+        s_id_jump_inst = true; //This is a jump, and we will use the value from the alu output (AKA the register file) for the target address
+        s_id_branchop = BRANCH_TRUE; //Always take branch
+        s_id_rfwtsel = 0; //Take the ALU output and NOT the PC+4 value for the value to write to the register file
+
+        // Load / store control signals
+        s_id_mem_ops = MEM_NOP; //We are not doing anything with memory in a jump instruction
+        s_id_memread = false; //We are not reading from memory in a jump instruction
+
+        // HALT Command
+        s_id_halt = false; //This is not a halt instruction
+    };
+};
 
 // -------------------------------------------------------------------------------------------------
 // load instructions
