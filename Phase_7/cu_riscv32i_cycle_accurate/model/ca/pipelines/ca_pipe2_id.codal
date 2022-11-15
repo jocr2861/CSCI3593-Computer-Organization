@@ -296,6 +296,8 @@ event id_output : pipeline(pipe.ID)
         r_id_jump_inst = s_id_jump_inst;
         r_id_mem_ops = s_id_mem_ops;
         r_id_memread = s_id_memread;
+        r_id_branchop = s_id_branchop;
+        r_id_rfwtsel = s_id_rfwtsel;
 
         // Passing the halt signal to the EX stage
         r_id_halt = s_id_halt;
