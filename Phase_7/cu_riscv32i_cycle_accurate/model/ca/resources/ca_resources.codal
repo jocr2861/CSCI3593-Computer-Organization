@@ -168,7 +168,7 @@ register bit[BOOLEAN_BIT] r_ex_alu_zero         { pipeline = pipe.EX; };    // a
 // Memory stage
 // -------------------------------------------------------------------------------------------------
 signal bit[BOOLEAN_BIT] s_me_take_branch;                                        //Informs the pipeline in a branch or jump is occuring
-signal bit[BOOLEAN_BIT]   s_me_mem_busy;                                         // Memory bus is busy
+signal bit[BOOLEAN_BIT] s_me_mem_busy;                                           // Memory bus is busy
 
 
 // MEM pipeline register

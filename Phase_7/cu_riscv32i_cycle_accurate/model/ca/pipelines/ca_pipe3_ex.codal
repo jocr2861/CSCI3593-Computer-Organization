@@ -206,12 +206,17 @@ event alu_operate : pipeline(pipe.EX)
                 break;
         }
 
+        //TEST THIS OUT...
+        // s_ex_pc_imm_target_address = r_id_pc + s_ex_src2_operand; //This is PC+IMM
+        // s_ex_pc_4 = r_id_pc + 4; //This is PC+4
+
+        //CHANGE r_id_jump_inst TO BE A JUMPOP_W TYPE AND THEN CHANGE THE CASE TO BE THE BRADD...
         //Multiplexor to decide branch target address
         switch(r_id_jump_inst) {
-            case(false):
+            case(0):
                 s_ex_target_address = s_ex_pc_imm_target_address;
                 break;
-            case(true):
+            case(1):
                 s_ex_target_address = s_ex_alu_output;
                 break;
             default:
@@ -228,10 +233,10 @@ event alu_operate : pipeline(pipe.EX)
 
         //Multiplexor to decide alu_result
         switch(r_id_rfwtsel) {
-            case(false):
+            case(WB_ALU):
                 s_ex_alu_result = s_ex_alu_output;
                 break;
-            case(true):
+            case(WB_PC):
                 s_ex_alu_result = s_ex_pc_4;
                 break;
             default:

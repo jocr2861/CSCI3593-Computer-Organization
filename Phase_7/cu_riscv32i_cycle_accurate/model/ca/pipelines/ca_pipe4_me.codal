@@ -53,7 +53,7 @@ event branch_logic : pipeline(pipe.MEM)
                 s_me_take_branch = 1; //Always take branch
                 break;
             case(BRANCH_FALSE):
-                s_me_take_branch = 1; //Never take branch
+                s_me_take_branch = 0; //Never take branch
                 break;
             case(BRANCH_COND_TRUE):
                 s_me_take_branch = r_ex_alu_zero; //Take branch if the ALU output is zero
