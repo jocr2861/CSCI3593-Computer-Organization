@@ -32,6 +32,7 @@
 // -------------------------------------------------------------------------------------------------
 event me : pipeline(pipe.MEM)
 {
+    use branch_logic;
     use me_output;
 
     semantics
@@ -39,6 +40,30 @@ event me : pipeline(pipe.MEM)
 
         // Update the pipeline registers between the Memory (MEM) and Write Back (WB) stages
         me_output();
+    };
+};
+
+event branch_logic : pipeline(pipe.MEM) 
+{ 
+    sematics
+    {
+        switch(r_ex_branchop) {
+            case(BRANCH_TRUE):
+                s_me_take_branch = 1; //Always take branch
+                break;
+            case(BRANCH_FALSE):
+                s_me_take_branch = 1; //Never take branch
+                break;
+            case(BRANCH_COND_TRUE):
+                s_me_take_branch = r_ex_alu_zero; //Take branch if the ALU output is zero
+                break;
+            case(BRANCH_COND_FALSE):
+                s_me_take_branch = !r_ex_alu_zero; //Take branch if the ALU outputs anything except zero
+                break;
+            default:
+                codasip_fatal(ALU_ERROR, "Take Branch AND Comparator case: %d\n", r_ex_branchop);
+                break;
+        }
     };
 };
 
