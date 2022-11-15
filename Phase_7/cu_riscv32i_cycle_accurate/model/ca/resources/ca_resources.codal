@@ -103,8 +103,8 @@ signal bit[MEM_OPCODE_W]       s_id_mem_ops;               // Memory opcode
 signal bit[BOOLEAN_BIT]        s_id_memread;               // Memory load operation if true
 signal bit[BOOLEAN_BIT]        s_id_branch_inst;           // bit used to notify an instruction is a branch
 signal bit[BOOLEAN_BIT]        s_id_jump_inst;             // bit used to notify a jump instruction
-signal bit[BRANCHOP_W]         s_id_branchop;                 // Branch operation
-signal bit[RFWTSEL_W]       
+signal bit[BRANCHOP_W]         s_id_branchop;              // Branch operation
+signal bit[RFWTSEL_W]          s_id_rfwtsel;               // Value of whether or not to use the ALU output or PC+4
 
 
 // ID pipeline register
@@ -120,6 +120,8 @@ register bit[ALU_SRC1_SEL_W] r_id_src1_sl           { pipeline = pipe.ID; };    
 register bit[ALU_SRC2_SEL_W] r_id_src2_sl           { pipeline = pipe.ID; };    // ALU src2 select lines for mux
 register bit[BOOLEAN_BIT]  r_id_branch_inst         { pipeline = pipe.ID; };    // If true, conditional branch instruction
 register bit[BOOLEAN_BIT]  r_id_jump_inst           { pipeline = pipe.ID; };    // If true, jump instruction
+register bit[BRANCHOP_W] r_id_branchop              { pipeline = pipe.ID; };    // Branch operation
+register bit[RFWTSEL_W] r_id_rfwtsel                { pipeline = pipe.ID; };    // Value of whether or not to use the ALU output or PC+4
 register bit[MEM_OPCODE_W] r_id_mem_ops             { pipeline = pipe.ID; };    // Opcode for Loads and Store operations (NOP = no load or store)
 register bit[BOOLEAN_BIT]  r_id_memread             { pipeline = pipe.ID; };    // If true, it is a Load operation
 register bit[RF_XPR_W] r_id_src1                    { pipeline = pipe.ID; };    // Src1 of the current instruction (allows for future hazard detection)
@@ -135,7 +137,11 @@ register bit[BOOLEAN_BIT]  r_id_halt                { pipeline = pipe.ID; };    
 // ALU signals
 signal bit[WORD_W] s_ex_src1_operand;          // src1 operand into ALU
 signal bit[WORD_W] s_ex_src2_operand;          // src2 operand into ALU
-signal bit[WORD_W] s_ex_alu_result;            // result of ALU operation
+signal bit[ADDR_W] s_ex_pc_imm_target_address; // PC+IMM value
+signal bit[ADDR_W] s_ex_target_address;        // Target address (either from alu_output or s_ex_pc_imm_target_address)
+signal bit[WORD_W] s_ex_alu_output;            // Output from ALU
+signal bit[WORD_W] s_ex_alu_result;            // result of ALU operation to go into the register file (either alu_output or PC+4)
+signal bit[BOOLEAN_BIT] s_ex_alu_zero;         // alu zero result from ALU
 
 // Data hazard forwarding MUX1 signals
 signal bit[DHF_W] s_ex_fwd1; //Select signal for the MUX
@@ -146,15 +152,16 @@ signal bit[DHF_W] s_ex_fwd2; //Select signal for the MUX
 signal bit[WORD_W] s_ex_src2_val; //The output source to be passed into the src2/imm MUX
 
 // EX pipeline register
-register bit[WORD_W] r_ex_alu_result            { pipeline = pipe.EX; };    // Data result from ALU
 register bit[RF_XPR_W] r_ex_rd                  { pipeline = pipe.EX; };    // rd / write register
-register bit[BOOLEAN_BIT] r_ex_regwrite            { pipeline = pipe.EX; };    // Does the current instruction wrt to RF
-register bit[BOOLEAN_BIT]  r_ex_branch_inst        { pipeline = pipe.EX; };    // If true, conditional branch instruction
-register bit[BOOLEAN_BIT]  r_ex_jump_inst          { pipeline = pipe.EX; };    // If true, jump instruction
+register bit[BOOLEAN_BIT] r_ex_regwrite         { pipeline = pipe.EX; };    // Does the current instruction wrt to RF
+register bit[BOOLEAN_BIT]  r_ex_branch_inst     { pipeline = pipe.EX; };    // If true, conditional branch instruction
+register bit[BOOLEAN_BIT]  r_ex_jump_inst       { pipeline = pipe.EX; };    // If true, jump instruction
+register bit[BRANCHOP_W] r_ex_branchop          { pipeline = pipe.EX; };    // Branch Instruction opcode
 register bit[MEM_OPCODE_W] r_ex_mem_ops         { pipeline = pipe.EX; };    // Opcode for Loads and Store operations (NOP = no load or store)
-register bit[BOOLEAN_BIT]  r_ex_memread            { pipeline = pipe.EX; };    // If true, it is a Load operation
-register bit[ADDR_W] r_ex_target_address         { pipeline = pipe.EX; };    // Address to branch or jump to if required
-
+register bit[BOOLEAN_BIT]  r_ex_memread         { pipeline = pipe.EX; };    // If true, it is a Load operation
+register bit[ADDR_W] r_ex_target_address        { pipeline = pipe.EX; };    // Address to branch or jump to if required
+register bit[WORD_W] r_ex_alu_result            { pipeline = pipe.EX; };    // Data result from ALU
+register bit[BOOLEAN_BIT] r_ex_alu_zero         { pipeline = pipe.EX; };    // alu zero result from ALU
 
 // -------------------------------------------------------------------------------------------------
 // Memory stage
