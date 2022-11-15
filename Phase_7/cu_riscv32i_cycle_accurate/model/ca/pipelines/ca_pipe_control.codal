@@ -31,7 +31,12 @@ event pipeline_control : pipeline(pipe.MEM)
 {
     semantics
     {
-
+        if (s_me_take_branch) {
+            pipe.ID.clear(); //Clear the ID stage pipeline, turning it into a NOP
+            pipe.EX.clear(); //Clear the EX stage pipeline, turning it into a NOP
+            //Do not clear the MEM, since we need this to complete the branch (perform the WB into the register file)
+        } else {
+            //Do nothing, CODAL handles it as normal
+        }
     };
 };
-
