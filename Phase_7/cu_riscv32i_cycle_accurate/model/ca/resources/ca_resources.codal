@@ -139,6 +139,7 @@ signal bit[WORD_W] s_ex_src1_operand;          // src1 operand into ALU
 signal bit[WORD_W] s_ex_src2_operand;          // src2 operand into ALU
 signal bit[ADDR_W] s_ex_pc_imm_target_address; // PC+IMM value
 signal bit[ADDR_W] s_ex_target_address;        // Target address (either from alu_output or s_ex_pc_imm_target_address)
+signal bit[ADDR_W] s_ex_pc_4;                  // PC+4 value
 signal bit[WORD_W] s_ex_alu_output;            // Output from ALU
 signal bit[WORD_W] s_ex_alu_result;            // result of ALU operation to go into the register file (either alu_output or PC+4)
 signal bit[BOOLEAN_BIT] s_ex_alu_zero;         // alu zero result from ALU

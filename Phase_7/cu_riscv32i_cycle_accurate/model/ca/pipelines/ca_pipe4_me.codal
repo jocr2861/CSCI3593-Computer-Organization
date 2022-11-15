@@ -39,13 +39,14 @@ event me : pipeline(pipe.MEM)
     {
 
         // Update the pipeline registers between the Memory (MEM) and Write Back (WB) stages
+        branch_logic();
         me_output();
     };
 };
 
 event branch_logic : pipeline(pipe.MEM) 
 { 
-    sematics
+    semantics
     {
         switch(r_ex_branchop) {
             case(BRANCH_TRUE):

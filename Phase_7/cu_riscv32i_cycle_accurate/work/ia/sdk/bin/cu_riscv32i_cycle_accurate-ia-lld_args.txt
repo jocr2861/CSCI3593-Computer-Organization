@@ -1,1 +1,0 @@
- -dT ../lib/ldscripts/default.lds

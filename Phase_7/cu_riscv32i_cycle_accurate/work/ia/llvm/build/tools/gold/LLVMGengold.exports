@@ -1,5 +1,0 @@
-LLVM_9 {
-  global:
-    onload;
-  local: *;
-};

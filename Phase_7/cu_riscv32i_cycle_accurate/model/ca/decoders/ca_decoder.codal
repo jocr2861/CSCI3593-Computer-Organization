@@ -451,7 +451,7 @@ element i_hw_itype_jlreg
         s_id_branch_inst = false; //This is not a "branch" instruction ?????
         s_id_jump_inst = true; //This is a jump, and we will use the value from the alu output (AKA the register file) for the target address
         s_id_branchop = BRANCH_TRUE; //Always take branch
-        s_id_rfwtsel = WC_ALU; //Take the ALU output and NOT the PC+4 value for the value to write to the register file
+        s_id_rfwtsel = WB_ALU; //Take the ALU output and NOT the PC+4 value for the value to write to the register file
 
         // Load / store control signals
         s_id_mem_ops = MEM_NOP; //We are not doing anything with memory in a jump instruction
