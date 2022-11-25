@@ -121,7 +121,15 @@ enum alu_src2_sel
 // MEMORY opcodes
 enum mem_ops
 {
-    MEM_NOP             // Not a memory operation
+    MEM_NOP = 0,            // Not a memory operation
+    MEM_LB,             //Load a byte from memory into the given register, sign extending when necessary
+    MEM_LBU,            //Load a byte from memory into the given register WITHOUT SIGN EXTENSION
+    MEM_LH,             //Load a half word from memory into the given register, sign extending when necessary
+    MEM_LHU,            //Load a half word from memory into the given register WITHOUT SIGN EXTENSION
+    MEM_LW,             //Load a word from memory into the given register
+    MEM_SB,             //Store the lower 8 bits in the given register into memory
+    MEM_SH,             //Store the lower 16 bits in the given register into memory
+    MEM_SW,             //Store all bits in the given register into memory
 };
 
 enum dhf_fwd

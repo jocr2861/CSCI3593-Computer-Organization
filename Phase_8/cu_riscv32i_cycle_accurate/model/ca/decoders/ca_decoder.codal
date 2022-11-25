@@ -41,7 +41,8 @@ set inst_decode += i_hw_btype_branches;
 set inst_decode += i_hw_jtype_jlink;
 set inst_decode += i_hw_itype_jlreg;
 set inst_decode += i_hw_utype_ops;
-
+set inst_decode += i_hw_itype_loads;
+set inst_decode += i_hw_stype_store;
 
 // -------------------------------------------------------------------------------------------------
 // Halt instruction
@@ -500,87 +501,119 @@ element i_hw_itype_jlreg
 // load instructions
 // -------------------------------------------------------------------------------------------------
 
-//element i_hw_itype_loads
-//{
-//    use opc_itype_loads as opc;
-//
-//    assembly { opc };
-//    binary { opc };
-//
-//    semantics
-//    {
-//        // Register file write enable
-//        s_id_regwrite =
-//
-//        // Assign the aluop opcode to perform the address calculation
-//        s_id_aluop =
-//
-//        // This switch statement assigns the alu operation to be performed by this instruction
-//        switch (opc)
-//        {
-//
-//        };
-//
-//        // Operand MUXes
-//        s_id_alusrc1 =
-//        s_id_alusrc2 =
-//
-//        // IMMEDIATE MUX select lines
-//        s_id_imm_gen_sel =
-//
-//        // Is this a branch instruction to take a branch if branch taken
-//        s_id_branch_inst =
-//        s_id_jump_inst =
-//
-//        // Load / store control signals
-//        s_id_memread =
-//
-//        // HALT Command
-//        s_id_halt =
-//    };
-//};
+element i_hw_itype_loads
+{
+    use opc_itype_loads as opc;
+
+    assembly { opc };
+    binary { opc };
+
+    semantics
+    {
+        // Register file write enable
+        s_id_regwrite = true; //We are writing to the register file
+
+        // Assign the aluop opcode to perform the address calculation
+        s_id_aluop = ALU_ADD; //Perform an ADD for all load/store functions (Instructions)
+
+        // This switch statement assigns the alu operation to be performed by this instruction
+        switch (opc)
+        {
+            case(ITYPE_LB):
+                s_id_mem_ops = MEM_LB; //Perform a load byte
+                break;
+            case(ITYPE_LBU):
+                s_id_mem_ops = MEM_LBU; //Perform a load byte (unsigned)
+                break;
+            case(ITYPE_LH):
+                s_id_mem_ops = MEM_LH; //Perform a load half word
+                break;
+            case(ITYPE_LHU):
+                s_id_mem_ops = MEM_LHU; //Perform a load half word (unsigned)
+                break;
+            case(ITYPE_LW):
+                s_id_mem_ops = MEM_LW; //Perform a load word
+                break;
+            default:
+                codasip_fatal(ALU_ERROR, "ITYPE Load Decoder case: %d\n", opc);
+                break;
+        };
+
+        // Operand MUXes
+        s_id_alusrc1 = ALU_SRC1_SEL_RF; //Store value into the register file
+        s_id_alusrc2 = ALU_SRC2_SEL_IMM; //Use the immediate as the memory address to get the value from
+
+        // IMMEDIATE MUX select lines
+        s_id_imm_gen_sel = ITYPE_IMM_SEL;
+
+        // Is this a branch instruction to take a branch if branch taken
+        s_id_branch_inst = false; //This is not a branch
+        s_id_jump_inst = BRADD_ALU; //This is not a jump, but use the value from the ALU output/register file for the target address (this is unused)
+        s_id_branchop = BRANCH_FALSE; //NEVER take branch
+        s_id_rfwtsel = WB_ALU; //Use the value from the ALU to write to the register file (even though it doesn't matter)
+
+        // Load / store control signals
+        s_id_memread = true; //We are reading from memory
+
+        // HALT Command
+        s_id_halt = false; //This is not a halt command
+    };
+};
 
 
 // -------------------------------------------------------------------------------------------------
 // store instructions
 // -------------------------------------------------------------------------------------------------
 
-//element i_hw_stype_store
-//{
-//    use opc_stype_store as opc;
-//
-//    assembly { opc };
-//    binary { opc };
-//
-//    semantics
-//    {
-//        // Register file write enable
-//        s_id_regwrite =
-//
-//        // Assign the aluop opcode to perform the address calculation
-//        s_id_aluop =
-//
-//        // This switch statement assigns the alu operation to be performed by this instruction
-//        switch (opc)
-//        {
-//
-//        };
-//
-//        // Operand MUXes
-//        s_id_alusrc1 =
-//        s_id_alusrc2 =
-//
-//        // IMMEDIATE MUX select lines
-//        s_id_imm_gen_sel =
-//
-//        // Is this a branch instruction to take a branch if branch taken
-//        s_id_branch_inst =
-//        s_id_jump_inst =
-//
-//        // Load / store control signals
-//        s_id_memread =
-//
-//        // HALT Command
-//        s_id_halt =
-//    };
-//};
+element i_hw_stype_store
+{
+    use opc_stype_store as opc;
+
+    assembly { opc };
+    binary { opc };
+
+    semantics
+    {
+        // Register file write enable
+        s_id_regwrite = false; //We are not writing to the register file
+
+        // Assign the aluop opcode to perform the address calculation
+        s_id_aluop = ALU_ADD; //Perform an ADD for all load/store functions (Instructions)
+
+        // This switch statement assigns the alu operation to be performed by this instruction
+        switch (opc)
+        {
+            case(STYPE_SB):
+                s_id_mem_ops = MEM_SB; //Perform a store byte
+                break;
+            case(STYPE_SH):
+                s_id_mem_ops = MEM_SH; //Perform a store half word
+                break;
+            case(STYPE_SW):
+                s_id_mem_ops = MEM_SW; //Perform a store word
+                break;
+            default:
+                codasip_fatal(ALU_ERROR, "STYPE Store Decoder case: %d\n", opc);
+                break;
+        };
+
+        // Operand MUXes
+        s_id_alusrc1 = ALU_SRC1_SEL_RF; //Use the register file as the source of the value to be stored in memory
+        s_id_alusrc2 = ALU_SRC2_SEL_IMM; //Use the immediate at the address in memory to store the value
+
+        // IMMEDIATE MUX select lines
+        s_id_imm_gen_sel = STYPE_IMM_SEL; //This is a s-type command
+
+        // Is this a branch instruction to take a branch if branch taken
+        s_id_branch_inst = false; //This is not branch instruction
+        s_id_jump_inst = BRADD_ALU; //This is not a jump, but use the value from the ALU output/register file for the target address (this is unused)
+        s_id_branchop = BRANCH_FALSE; //NEVER take branch
+        s_id_rfwtsel = WB_ALU; //Use the value from the ALU to write to the register file (even though it doesn't matter)
+
+        // Load / store control signals
+        s_id_memread = false; //We are not reading from memory, only writing
+
+        // HALT Command
+        s_id_halt = false; //This is not a halt command
+    };
+};

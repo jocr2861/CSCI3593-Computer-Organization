@@ -1,0 +1,6 @@
+# ninja log v5
+0	7731	1668984144102660330	CMakeFiles/codasip_tti.dir/llvm_CodasipTTIImpl.cpp.o	60db2e55eac83abd
+1	8474	1668984144846662899	CMakeFiles/codasip_tti.dir/llvm_CodasipGenTTIImpl.cpp.o	b1c66efddcacd3bd
+0	9831	1668984146202667583	CMakeFiles/codasip_tti.dir/CodasipTTI.cpp.o	db20582195cbc535
+9831	9873	1668984146242667721	libcu_riscv32i_cycle_accurate-ia-tti.so	5e6152ecdbb53bfa
+2	9	0	CMakeFiles/install.util	56bf38ed5b84433a
