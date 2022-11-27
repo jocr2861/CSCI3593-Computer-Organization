@@ -82,6 +82,9 @@ signal bit[WORD_W] s_id_rf_src1; //Register file output
 signal bit[RFF_W] s_id_fwd2; //Select signal for the MUX
 signal bit[WORD_W] s_id_rf_src2; //Register file output
 
+// Load data hazard detection
+signal bit[BOOLEAN_BIT] s_id_loadhaz; //Wether or not there is a load hazard, meaning we need to stall with a NOP
+
 
 // Singals/registers to preserve instruction durin a pipeline stall
 signal bit[BOOLEAN_BIT]     s_id_icache_stall;
@@ -141,6 +144,8 @@ signal bit[ADDR_W] s_ex_target_address;        // Target address (either from al
 signal bit[WORD_W] s_ex_alu_output;            // Output from ALU
 signal bit[WORD_W] s_ex_alu_result;            // result of ALU operation to go into the register file (either alu_output or PC+4)
 signal bit[BOOLEAN_BIT] s_ex_alu_zero;         // alu zero result from ALU
+signal bit[WORD_W] s_ex_wtdat;                 // Encoded data that will be stored in memory (if applicable)
+signal bit[MEM_SIZE_W] s_ex_mem_size;          // The size of the data we are storing/loading to/from memory
 
 // Data hazard forwarding MUX1 signals
 signal bit[DHF_W] s_ex_fwd1; //Select signal for the MUX
@@ -161,16 +166,24 @@ register bit[BOOLEAN_BIT]  r_ex_memread         { pipeline = pipe.EX; };    // I
 register bit[ADDR_W] r_ex_target_address        { pipeline = pipe.EX; };    // Address to branch or jump to if required
 register bit[WORD_W] r_ex_alu_result            { pipeline = pipe.EX; };    // Data result from ALU
 register bit[BOOLEAN_BIT] r_ex_alu_zero         { pipeline = pipe.EX; };    // alu zero result from ALU
+register bit[WORD_W] r_ex_wtdat                 { pipeline = pipe.EX; };    // Encoded data that will be stored in memory (if applicable)
+register bit[WORD_W] r_ex_mem_size              { pipeline = pipe.EX; };    // The size of the data we are storing/loading to/from memory
+
 
 // -------------------------------------------------------------------------------------------------
 // Memory stage
 // -------------------------------------------------------------------------------------------------
-signal bit[BOOLEAN_BIT] s_me_take_branch;                                        //Informs the pipeline in a branch or jump is occuring
-signal bit[BOOLEAN_BIT] s_me_mem_busy;                                           // Memory bus is busy
+signal bit[BOOLEAN_BIT] s_me_take_branch;                           // Informs the pipeline in a branch or jump is occuring
+signal bit[BOOLEAN_BIT] s_me_mem_busy;                              // Memory bus is busy
+signal bit[WORD_W] s_mem_data_ready;                                // Signal output from the transport function
+signal bit[WORD_W] s_mem_data_response;                             // Signal output from the transport function
+signal bit[WORD_W] s_mem_memdat;                                    // Data returned from memory upon a load, after being decoded
 
 
 // MEM pipeline register
 register bit[WORD_W] r_mem_alu_result       { pipeline = pipe.MEM; };   // ALU result from Memory stage
+register bit[WORD_W] r_mem_memdat           { pipeline = pipe.MEM; };   // Data returned from memory upon a load, after being decoded
+register bit[WORD_W] r_mem_memread          { pipeline = pipe.MEM; };   // Wether or not we are reading from memory, deciding if we should write ALU or Mem Data to the Register File
 register bit[WORD_W] r_mem_rd               { pipeline = pipe.MEM; };   // Destination, rd, register index
 register bit[WORD_W] r_mem_regwrite         { pipeline = pipe.MEM; };   // Register Write (regwrite)
 

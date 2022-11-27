@@ -33,6 +33,7 @@
 event ex : pipeline(pipe.EX)
 {
     use alu_operate;
+    use memory_operation;
     use ex_output;
 
     semantics
@@ -148,6 +149,7 @@ event ex : pipeline(pipe.EX)
 
         // If not a halt operation, call ALU routine
         alu_operate();
+        memory_operation();
 
 
 
@@ -251,6 +253,68 @@ event alu_operate : pipeline(pipe.EX)
     };
 };
 
+event memory_operation : pipeline(pipe.EX)
+{
+    semantics
+    {
+        uint2 op_type;
+        uint1 op_rw;
+
+        switch(r_id_mem_ops) {
+            case(MEM_NOP):
+                op_type = CP_AHB_IDLE; //Do not do anything (idle bus)
+                op_rw = 0; //DON'T CARE
+                s_ex_mem_size = CP_AHB_SIZE_8; //DON'T CARE
+                break;
+            case(MEM_LB):
+                op_type = CP_AHB_NONSEQ; //Load using random access
+                op_rw = CP_AHB_READ; //Read from memory
+                s_ex_mem_size = CP_AHB_SIZE_8; //Load a byte of data
+                break;
+            case(MEM_LBU):
+                op_type = CP_AHB_NONSEQ; //Load using random access
+                op_rw = CP_AHB_READ; //Read from memory
+                s_ex_mem_size = CP_AHB_SIZE_8; //Load a byte of data
+                break;
+            case(MEM_LH):
+                op_type = CP_AHB_NONSEQ; //Load using random access
+                op_rw = CP_AHB_READ; //Read from memory
+                s_ex_mem_size = CP_AHB_SIZE_16; //Load a half word of data
+                break;
+            case(MEM_LHU):
+                op_type = CP_AHB_NONSEQ; //Load using random access
+                op_rw = CP_AHB_READ; //Read from memory
+                s_ex_mem_size = CP_AHB_SIZE_16; //Load a half word of data
+                break;
+            case(MEM_LW):
+                op_type = CP_AHB_NONSEQ; //Load using random access
+                op_rw = CP_AHB_READ; //Read from memory
+                s_ex_mem_size = CP_AHB_SIZE_32; //Load a word of data
+                break;
+            case(MEM_SB):
+                op_type = CP_AHB_NONSEQ; //Store using random access
+                op_rw = CP_AHB_WRITE; //Write to memory
+                s_ex_mem_size = CP_AHB_SIZE_8; //Store a byte of data
+                break;
+            case(MEM_SH):
+                op_type = CP_AHB_NONSEQ; //Store using random access
+                op_rw = CP_AHB_WRITE; //Write to memory
+                s_ex_mem_size = CP_AHB_SIZE_16; //Store a half word of data
+                break;
+            case(MEM_SW):
+                op_type = CP_AHB_NONSEQ; //Store using random access
+                op_rw = CP_AHB_WRITE; //Write to memory
+                s_ex_mem_size = CP_AHB_SIZE_32; //Store a word of data
+                break;
+            default:
+                codasip_fatal(ALU_ERROR, "Memory Operation Select Mux case: %d\n", r_id_mem_ops);
+                break;
+        }
+
+        ldst.transport(CP_PHS_ADDRESS, op_type, op_rw, s_ex_alu_output, s_ex_mem_size); //Initialize memory bus operation (phase, op_type, op_rw, address/offset, data size)
+        s_ex_wtdat = ldst.encode_data(s_ex_src2_val, s_ex_alu_output, s_ex_mem_size); //Encode the data into Little-endian format (data, address/offset, data size)
+    };
+};
 
 event ex_output : pipeline(pipe.EX)
 {
@@ -262,6 +326,8 @@ event ex_output : pipeline(pipe.EX)
         r_ex_target_address = s_ex_target_address;
         r_ex_alu_result = s_ex_alu_result;
         r_ex_alu_zero = s_ex_alu_zero;
+        r_ex_wtdat = s_ex_wtdat;
+        r_ex_mem_size = s_ex_mem_size;
 
         // Passing control signals to the next stage, MEM, through the EX pipeline register.  These
         // instruction decoder signals are being passed from the ID pipeline to the EX pipeline.

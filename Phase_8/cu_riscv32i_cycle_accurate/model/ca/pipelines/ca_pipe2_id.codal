@@ -119,9 +119,8 @@ event id : pipeline(pipe.ID)
         s_id_rf_src2 = rf_xpr.src2[s_id_src2]; //get the value of register # "s_id_src2" from the register file
 
         //Add load hazard detection (if the previous instruction was a load from memory and we need that value for src1/src2)
-        if (((r_ex_rd == s_id_src1) || (r_ex_rd == s_id_src1)) && ((s_id_mem_ops == MEM_LB) || (s_id_mem_ops == MEM_LBU) || (s_id_mem_ops == MEM_LH) || (s_id_mem_ops == MEM_LHU || (s_id_mem_ops == MEM_LW))) {
+        if (((r_ex_rd == s_id_src1) || (r_ex_rd == s_id_src1)) && ((s_id_mem_ops == MEM_LB) || (s_id_mem_ops == MEM_LBU) || (s_id_mem_ops == MEM_LH) || (s_id_mem_ops == MEM_LHU) || (s_id_mem_ops == MEM_LW))) {
             s_id_loadhaz = true; //Tell the IF stage to wait and keep the same PC to try again in the next stage
-            s_id_instr = NOP_INSTRUCTION; //Load a NOP bubble into this stage
         } else {
             s_id_loadhaz = false; //there is no hazard
         }

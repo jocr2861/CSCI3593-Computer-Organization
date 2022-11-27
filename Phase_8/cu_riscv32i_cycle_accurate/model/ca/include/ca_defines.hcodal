@@ -47,6 +47,7 @@
 #define DHF_W                   bitsizeof(enum dhf_fwd)
 #define RFWTSEL_W               bitsizeof(enum rfwtsel)
 #define JUMPOP_W                bitsizeof(enum jumpop)
+#define MEM_SIZE_W              bitsizeof(uint2)
 
 //MEM
 #define BRANCHOP_W               bitsizeof(enum branchop)
@@ -121,7 +122,7 @@ enum alu_src2_sel
 // MEMORY opcodes
 enum mem_ops
 {
-    MEM_NOP = 0,            // Not a memory operation
+    MEM_NOP = 0,        // Not a memory operation
     MEM_LB,             //Load a byte from memory into the given register, sign extending when necessary
     MEM_LBU,            //Load a byte from memory into the given register WITHOUT SIGN EXTENSION
     MEM_LH,             //Load a half word from memory into the given register, sign extending when necessary

@@ -37,6 +37,55 @@ event me : pipeline(pipe.MEM)
 
     semantics
     {
+        // uint2 data_ready;
+        // uint1 data_response;
+        uint2 load_data_signal;
+        uint32 mem_data_returned;
+
+        ldst.transport(CP_PHS_DATA, s_mem_data_ready, s_mem_data_response, load_data_signal, r_ex_wtdat); //Complete memory bus operation (phase, data_ready{RETURN}, data_response{RETURN}, load_data_signal{OUTPUT}, data)
+        mem_data_returned = ldst.decode_data(load_data_signal, r_ex_alu_result, r_ex_mem_size);
+
+        switch(r_id_mem_ops) {
+            case(MEM_NOP):
+                s_mem_memdat = 0; //DON'T CARE
+                break;
+            case(MEM_LB):
+                s_mem_memdat = (int32)(int8)mem_data_returned; //Load a byte of data (sign extended)
+                break;
+            case(MEM_LBU):
+                s_mem_memdat = (uint32)(int8)mem_data_returned; //Load a byte of data
+                break;
+            case(MEM_LH):
+                s_mem_memdat = (int32)(int16)mem_data_returned; //Load a half word of data (sign extended)
+                break;
+            case(MEM_LHU):
+                s_mem_memdat = (uint32)(int16)mem_data_returned; //Load a half word of data
+                break;
+            case(MEM_LW):
+                s_mem_memdat = (uint32)mem_data_returned; //Load a word of data
+                break;
+            case(MEM_SB):
+                s_mem_memdat = 0; //DON'T CARE
+                break;
+            case(MEM_SH):
+                s_mem_memdat = 0; //DON'T CARE
+                break;
+            case(MEM_SW):
+                s_mem_memdat = 0; //DON'T CARE
+                break;
+            default:
+                codasip_fatal(ALU_ERROR, "Memory Operation Select Mux case: %d\n", r_id_mem_ops);
+                break;
+        }
+
+        //Stall memory if necessary
+        if (!s_mem_data_ready) {
+            s_me_mem_busy = true; //Memory has not finished its operation
+        } else if (!s_mem_data_response) {
+            s_me_mem_busy = true; //Memory has not finished its transfer, or there is a memory bus failure
+        } else {
+            s_me_mem_busy = false; //Memory has finished its operation/transfer
+        }
 
         // Update the pipeline registers between the Memory (MEM) and Write Back (WB) stages
         branch_logic();
@@ -75,9 +124,12 @@ event me_output : pipeline(pipe.MEM)
         // ALU result from the EX pipeline register to pass along to the WB stage
         r_mem_alu_result = r_ex_alu_result;
 
+        // Memory data result to pass to the WB stage
+        r_mem_memdat = s_mem_memdat;
 
         // Passing control signals to the next stage, WB, through the MEM pipeline register
-        r_mem_rd          = r_ex_rd;
-        r_mem_regwrite    = r_ex_regwrite;
+        r_mem_memread = r_ex_memread;
+        r_mem_rd = r_ex_rd;
+        r_mem_regwrite = r_ex_regwrite;
     };
 };
