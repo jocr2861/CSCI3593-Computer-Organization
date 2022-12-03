@@ -31,20 +31,19 @@ event pipeline_control : pipeline(pipe.MEM)
 {
     semantics
     {
-        if (s_me_take_branch) {
+        if (s_me_take_branch) { //ERROR HERE?
             pipe.ID.clear(); //Clear the ID stage pipeline, turning it into a NOP
             pipe.EX.clear(); //Clear the EX stage pipeline, turning it into a NOP
             //Do not clear the MEM, since we need this to complete the branch (perform the WB into the register file)
             r_id_buffer_full = false; //Tell the ID stage that we are NOT stalling
-        } else if (s_me_mem_busy) { //If memory is not ready yet, stall all stages (except for the memory stage, let it process again)
-            pipe.IF.stall();
-            pipe.ID.stall();
-            pipe.EX.stall();
-            // pipe.WB.stall();
-            r_id_buffer_full = true; //Tell the ID stage that we are stalling and on the next cycle it should reuse the same instruction
         } else if (s_id_loadhaz) { //If there is a load data hazard, stall IF/ID and insert NOPs to let the other stages complete their operations
+            pipe.IF.stall(); //Stall ID
+            pipe.ID.clear(); //NOP EX
+            r_id_buffer_full = true; //Tell the ID stage that we are stalling and on the next cycle it should reuse the same instruction
+        } else if (s_me_mem_stall) { //If memory is not ready yet, stall all stages (except for the memory stage, let it process again)
             pipe.IF.stall();
             pipe.ID.stall();
+            pipe.EX.stall(); //MEM STALL
             r_id_buffer_full = true; //Tell the ID stage that we are stalling and on the next cycle it should reuse the same instruction
         } else {
             //Do nothing, CODAL handles it as normal

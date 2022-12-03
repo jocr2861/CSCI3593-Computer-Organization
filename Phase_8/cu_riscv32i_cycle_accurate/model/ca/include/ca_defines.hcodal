@@ -47,7 +47,7 @@
 #define DHF_W                   bitsizeof(enum dhf_fwd)
 #define RFWTSEL_W               bitsizeof(enum rfwtsel)
 #define JUMPOP_W                bitsizeof(enum jumpop)
-#define MEM_SIZE_W              bitsizeof(uint2)
+#define MEM_SIZE_W              bitsizeof(uint8)
 
 //MEM
 #define BRANCHOP_W               bitsizeof(enum branchop)
@@ -123,14 +123,14 @@ enum alu_src2_sel
 enum mem_ops
 {
     MEM_NOP = 0,        // Not a memory operation
+    MEM_SB,             //Store the lower 8 bits in the given register into memory
+    MEM_SH,             //Store the lower 16 bits in the given register into memory
+    MEM_SW,             //Store all bits in the given register into memory
     MEM_LB,             //Load a byte from memory into the given register, sign extending when necessary
     MEM_LBU,            //Load a byte from memory into the given register WITHOUT SIGN EXTENSION
     MEM_LH,             //Load a half word from memory into the given register, sign extending when necessary
     MEM_LHU,            //Load a half word from memory into the given register WITHOUT SIGN EXTENSION
     MEM_LW,             //Load a word from memory into the given register
-    MEM_SB,             //Store the lower 8 bits in the given register into memory
-    MEM_SH,             //Store the lower 16 bits in the given register into memory
-    MEM_SW,             //Store all bits in the given register into memory
 };
 
 enum dhf_fwd

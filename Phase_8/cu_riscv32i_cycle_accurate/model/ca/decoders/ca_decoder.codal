@@ -390,8 +390,8 @@ element i_hw_utype_ops
         s_id_imm_gen_sel = UTYPE_IMM_SEL; //Decode the IMM as the Upper Immediate
 
         // Is this a branch instruction to take a branch if branch taken
-        s_id_branch_inst = false; //This is not a branch instruction
-        s_id_jump_inst = BRADD_ADDR; //This is not a jump instruction
+        s_id_branch_inst = BRADD_ADDR; //This is not a branch instruction
+        s_id_jump_inst = false; //This is not a jump instruction
         s_id_branchop = BRANCH_FALSE; //Never take branch
         s_id_rfwtsel = WB_ALU; //Take the ALU output and NOT the PC+4 value for the value to write to the register file
 
@@ -503,7 +503,7 @@ element i_hw_itype_jlreg
 
 element i_hw_itype_loads
 {
-    use opc_itype_loads as opc;
+    use opc_itype_loads as opc; 
 
     assembly { opc };
     binary { opc };

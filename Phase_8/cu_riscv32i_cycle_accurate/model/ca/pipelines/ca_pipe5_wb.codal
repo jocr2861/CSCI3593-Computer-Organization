@@ -45,10 +45,14 @@ event wb : pipeline(pipe.MEM)
         // regwrite, rd, and alu_result
         if (r_mem_regwrite) {
             if (r_mem_memread) { //If we were reading from memory
-                rf_xpr.wrt0[r_mem_rd] = r_mem_memdat; //Write the Memory Data returned to the register file
+                s_wb_register_data = r_mem_memdat; //Use the Memory Data returned as the output to the register file
             } else { //If we were not interfacing with memory
-                rf_xpr.wrt0[r_mem_rd] = r_mem_alu_result; //Write the ALU output to the register file
+                s_wb_register_data = r_mem_alu_result; //Use the ALU Output Data as the output to the register file
             }
+        }
+
+        if (r_mem_regwrite) {
+            rf_xpr.wrt0[r_mem_rd] = s_wb_register_data; //Write the ALU/Memory Data returned to the register file
         }
 
 

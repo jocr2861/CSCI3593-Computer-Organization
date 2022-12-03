@@ -66,7 +66,7 @@ event ex : pipeline(pipe.EX)
                 s_ex_src1_val = r_ex_alu_result; //If we are bypassing from after EX (before the MEM stage), send the last alu output value to the src1 select MUX
                 break;
             case(DHF_WB):
-                s_ex_src1_val = r_mem_alu_result;  //If we are bypassing from after MEM (before the WB stage), send the mem alu output value to the src1 select MUX
+                s_ex_src1_val = s_wb_register_data;  //If we are bypassing from WB (before the clock edge), send the register data value to the src2 select MUX
                 break;
             default:
                 codasip_fatal(ALU_ERROR, "Data Forwarding Src1 Select Mux case: %d\n", s_ex_fwd1);
@@ -82,7 +82,7 @@ event ex : pipeline(pipe.EX)
                 s_ex_src2_val = r_ex_alu_result; //If we are bypassing from after EX (before the MEM stage), send the last alu output value to the src2 select MUX
                 break;
             case(DHF_WB):
-                s_ex_src2_val = r_mem_alu_result;  //If we are bypassing from after MEM (before the WB stage), send the mem alu output value to the src2 select MUX
+                s_ex_src2_val = s_wb_register_data;  //If we are bypassing from WB (before the clock edge), send the register data value to the src2 select MUX
                 break;
             default:
                 codasip_fatal(ALU_ERROR, "Data Forwarding Src1 Select Mux case: %d\n", s_ex_fwd2);
@@ -311,8 +311,13 @@ event memory_operation : pipeline(pipe.EX)
                 break;
         }
 
-        ldst.transport(CP_PHS_ADDRESS, op_type, op_rw, s_ex_alu_output, s_ex_mem_size); //Initialize memory bus operation (phase, op_type, op_rw, address/offset, data size)
-        s_ex_wtdat = ldst.encode_data(s_ex_src2_val, s_ex_alu_output, s_ex_mem_size); //Encode the data into Little-endian format (data, address/offset, data size)
+        if (!s_me_take_branch) { //If we are NOT taking a branch, initiate a memory operation
+            ldst.transport(CP_PHS_ADDRESS, op_type, op_rw, s_ex_alu_output, s_ex_mem_size); //Initialize memory bus operation (phase, op_type, op_rw, address/offset, data size)
+            s_ex_wtdat = ldst.encode_data(s_ex_src2_val, s_ex_alu_output, s_ex_mem_size); //Encode the data into Little-endian format (data, address/offset, data size)
+        } else { //If we ARE taking a branch, don't initiate a memory operation (do an IDLE so that the next transport cycle in the MEM stage is happy)
+            ldst.transport(CP_PHS_ADDRESS, CP_AHB_IDLE, op_rw, s_ex_alu_output, s_ex_mem_size); //Initialize memory bus operation (phase, op_type, op_rw, address/offset, data size)
+            s_ex_wtdat = ldst.encode_data(s_ex_src2_val, s_ex_alu_output, s_ex_mem_size); //Encode the data into Little-endian format (data, address/offset, data size)
+        }
     };
 };
 
